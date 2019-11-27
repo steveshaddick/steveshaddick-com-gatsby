@@ -1,21 +1,45 @@
-import React from "react"
-import { Link } from "gatsby"
+import React from "react";
+import { Link, graphql } from "gatsby";
+import axios from "axios";
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
+import Layout from "../components/layout";
+import Image from "../components/image";
+import SEO from "../components/seo";
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link>
-  </Layout>
-)
+class IndexPage extends React.Component {
+  state = {
+    loading: false,
+    error: false,
+    video: {
+      id: "",
+    },
+  }
 
-export default IndexPage
+  componentDidMount() {
+    this.fetchVideo()
+  }
+
+  fetchVideo() {
+    this.setState({ loading: true });
+    console.log("FETCHING ...", `https://cdn.contentful.com/spaces/${process.env.CF_SPACE_ID}/environments/master/entries/eg9Kdh7zZqahCgCBCMC4k?access_token=${process.env.CF_ACCESS_TOKEN}`);
+    axios
+      .get(`https://cdn.contentful.com/spaces/${process.env.CF_SPACE_ID}/environments/master/entries/eg9Kdh7zZqahCgCBCMC4k?access_token=${process.env.CF_ACCESS_TOKEN}`)
+      .then((video) => {
+        console.log("RETURNED", video);
+      })
+      .catch(error => {
+        this.setState({ loading: false, error })
+      })
+  }
+
+  render () {
+    return (
+      <Layout>
+        <SEO title="Home" />
+        <div>Here we are</div>
+      </Layout>
+    );
+  }
+}
+
+export default IndexPage;
