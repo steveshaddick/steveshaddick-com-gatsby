@@ -2,5 +2,6 @@
 .env
 
 .cache
+node_modules
 public
 
