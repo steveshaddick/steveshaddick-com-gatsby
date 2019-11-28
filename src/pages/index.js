@@ -1,10 +1,18 @@
 import React from "react";
 import { Link, graphql } from "gatsby";
-import axios from "axios";
+import { createClient } from 'contentful';
 
 import Layout from "../components/layout";
 import Image from "../components/image";
 import SEO from "../components/seo";
+import Video from "../components/Video";
+
+const client = createClient({
+  // This is the space ID. A space is like a project folder in Contentful terms
+  space: process.env.CF_SPACE_ID,
+  // This is the access token for this space. Normally you get both ID and the token in the Contentful web app
+  accessToken: process.env.CF_ACCESS_TOKEN
+});
 
 class IndexPage extends React.Component {
   state = {
@@ -21,15 +29,17 @@ class IndexPage extends React.Component {
 
   fetchVideo() {
     this.setState({ loading: true });
-    console.log("FETCHING ...", `https://cdn.contentful.com/spaces/${process.env.CF_SPACE_ID}/environments/master/entries/eg9Kdh7zZqahCgCBCMC4k?access_token=${process.env.CF_ACCESS_TOKEN}`);
-    axios
-      .get(`https://cdn.contentful.com/spaces/${process.env.CF_SPACE_ID}/environments/master/entries/eg9Kdh7zZqahCgCBCMC4k?access_token=${process.env.CF_ACCESS_TOKEN}`)
-      .then((video) => {
-        console.log("RETURNED", video);
+    client
+      .getEntry("eg9Kdh7zZqahCgCBCMC4k")
+      .then((response) => {
+        console.log("RETURNED", response);
+        this.setState({
+          video: {
+            id: response.fields.work.fields.vimeoId
+          }
+        })
       })
-      .catch(error => {
-        this.setState({ loading: false, error })
-      })
+      .catch(err => console.log(err));
   }
 
   render () {
@@ -37,6 +47,7 @@ class IndexPage extends React.Component {
       <Layout>
         <SEO title="Home" />
         <div>Here we are</div>
+        <Video videoId={this.state.video.id}></Video>
       </Layout>
     );
   }
