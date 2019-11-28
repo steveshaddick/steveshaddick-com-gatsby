@@ -37,7 +37,11 @@ module.exports = {
         spaceId: process.env.CF_SPACE_ID,
         accessToken: process.env.CF_ACCESS_TOKEN
       }
-    }
+    },
+    {
+      resolve: `gatsby-plugin-create-client-paths`,
+      options: { prefixes: [`/work/*`] },
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

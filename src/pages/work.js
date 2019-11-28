@@ -15,7 +15,7 @@ const client = createClient({
   accessToken: process.env.CF_ACCESS_TOKEN
 });
 
-class IndexPage extends React.Component {
+class WorkPage extends React.Component {
   state = {
     loading: false,
     error: false,
@@ -44,13 +44,18 @@ class IndexPage extends React.Component {
   }
 
   render () {
-    const { data: { contentfulWorkList: { works } } } = this.props;
+    const {
+      data: { contentfulWorkList: { works } },
+      location 
+    } = this.props;
 
-    console.log(works);
+    const currentSlug = location.pathname.replace('/work/', '')
+
+    console.log(location, works);
     return (
       <Layout>
-        <SEO title="Home" />
-        <div>Here we are {works[0].slug }</div>
+        <SEO title="Work" />
+        <div>Here we are { currentSlug }</div>
         <Video videoId={this.state.video.id}></Video>
         <WorksList works={works} />
       </Layout>
@@ -58,7 +63,7 @@ class IndexPage extends React.Component {
   }
 }
 
-export default IndexPage;
+export default WorkPage;
 
 export const pageQuery = graphql`
   query {
