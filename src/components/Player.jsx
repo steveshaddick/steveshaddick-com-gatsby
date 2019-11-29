@@ -4,9 +4,10 @@ import styled from 'styled-components'
 
 import ReactPlayer from 'react-player'
 
-const VideoWrapper = styled.div`
+const Container = styled.div`
   position: relative;
   padding-top: 56.25%; /* Player ratio: 100 / (1280 / 720) */
+  box-shadow: rgba(0,0,0,0.25) 0px 0px 25px 5px;
 
   .ReactPlayer {
     position: absolute;
@@ -15,28 +16,28 @@ const VideoWrapper = styled.div`
   }
 `
 
-const Video = ({ videoId, loop, controls }) => (
-  <VideoWrapper>
+const Player = ({ url, loop, controls }) => (
+  <Container>
     <ReactPlayer
       className="ReactPlayer"
-      url={`https://vimeo.com/${videoId}`}
+      url={url}
       playing
       width='100%'
       height='100%'
       />
-  </VideoWrapper>
+  </Container>
 )
 
-Video.propTypes = {
-  videoId: PropTypes.string,
+Player.propTypes = {
+  url: PropTypes.string,
   loop: PropTypes.bool,
   controls: PropTypes.bool
 }
 
-Video.defaultProps = {
-  videoId: ``,
+Player.defaultProps = {
+  url: ``,
   loop: true,
   controls: true,
 }
 
-export default Video
+export default Player

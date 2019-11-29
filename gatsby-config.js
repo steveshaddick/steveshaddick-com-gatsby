@@ -4,9 +4,9 @@ require('dotenv').config({
 
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Steve Shaddick`,
+    description: `Sometimes I make things, and sometimes I post them here.`,
+    author: `Steve Shaddick`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -37,10 +37,6 @@ module.exports = {
         spaceId: process.env.CF_SPACE_ID,
         accessToken: process.env.CF_ACCESS_TOKEN
       }
-    },
-    {
-      resolve: `gatsby-plugin-create-client-paths`,
-      options: { prefixes: [`/work/*`] },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline

@@ -2,10 +2,10 @@ import React from "react";
 import { Link, graphql } from "gatsby";
 import { createClient } from 'contentful';
 
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 import Image from "../components/image";
 import SEO from "../components/seo";
-import Video from "../components/Video";
+import Player from "../components/Player";
 import WorksList from "../components/WorksList";
 
 const client = createClient({
@@ -46,17 +46,20 @@ class WorkPage extends React.Component {
   render () {
     const {
       data: { contentfulWorkList: { works } },
-      location 
+      location,
+      pageContext
     } = this.props;
+
+    console.log(pageContext);
 
     const currentSlug = location.pathname.replace('/work/', '')
 
     console.log(location, works);
     return (
       <Layout>
-        <SEO title="Work" />
+        <SEO title={ currentSlug } />
         <div>Here we are { currentSlug }</div>
-        <Video videoId={this.state.video.id}></Video>
+        <Player url={pageContext.url}></Player>
         <WorksList works={works} />
       </Layout>
     );
@@ -70,19 +73,21 @@ export const pageQuery = graphql`
     contentfulWorkList(contentful_id: {eq: "1p5V0NNEhIoZedN0PVNirR"}) {
       works {
         contentful_id
+        title
         slug
-        work {
-          __typename
-          ... on Node {
-              ... on ContentfulVideo {
-                title
-                vimeoId
-              }
-              ... on ContentfulWebsite {
-                title
-                url
-              }
-          }
+        type
+        image {
+          title
+          url
+        }
+        thumbnail {
+          title
+          url
+        }
+        info
+        url
+        description {
+          json
         }
       }
     }

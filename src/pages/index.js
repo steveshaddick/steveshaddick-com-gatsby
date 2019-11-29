@@ -2,10 +2,10 @@ import React from "react";
 import { Link, graphql } from "gatsby";
 import { createClient } from 'contentful';
 
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 import Image from "../components/image";
 import SEO from "../components/seo";
-import Video from "../components/Video";
+import Player from "../components/Player";
 import WorksList from "../components/WorksList";
 
 const client = createClient({
@@ -44,15 +44,11 @@ class IndexPage extends React.Component {
   }
 
   render () {
-    const { data: { contentfulWorkList: { works } } } = this.props;
 
-    console.log(works);
     return (
       <Layout>
         <SEO title="Home" />
-        <div>Here we are {works[0].slug }</div>
-        <Video videoId={this.state.video.id}></Video>
-        <WorksList works={works} />
+        <Player videoId={this.state.video.id}></Player>
       </Layout>
     );
   }
@@ -60,26 +56,3 @@ class IndexPage extends React.Component {
 
 export default IndexPage;
 
-export const pageQuery = graphql`
-  query {
-    contentfulWorkList(contentful_id: {eq: "1p5V0NNEhIoZedN0PVNirR"}) {
-      works {
-        contentful_id
-        slug
-        work {
-          __typename
-          ... on Node {
-              ... on ContentfulVideo {
-                title
-                vimeoId
-              }
-              ... on ContentfulWebsite {
-                title
-                url
-              }
-          }
-        }
-      }
-    }
-  }
-`;
