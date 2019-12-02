@@ -620,3 +620,23 @@ pre tt:after {
     font-size: 100%;
   }
 }
+
+.tl-wrapper .transitionNode {
+  transition: all 300ms ease-out;
+}
+
+.tl-wrapper-status--exiting .transitionNode.enterFore,
+.tl-wrapper-status--entering .transitionNode.enterFore {
+  opacity: 0;
+  transform: scale(1.5);
+}
+.tl-wrapper-status--exiting .transitionNode.enterBack, 
+.tl-wrapper-status--entering .transitionNode.enterBack {
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+.tl-wrapper-status--entered .transitionNode {
+  opacity: 1;
+  transform: scale(1);
+}

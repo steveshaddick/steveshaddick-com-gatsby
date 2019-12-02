@@ -58,7 +58,7 @@ exports.createPages = ({ graphql, actions }) => {
         console.log("Error retrieving contentful data",      result.errors);
       }
       // Resolve the paths to our template
-      const blogPostTemplate = path.resolve("./src/pages/work.js");
+      const blogPostTemplate = path.resolve("./src/templates/work.js");
       // Then for each result we create a page.
       result.data.contentfulWorkList.works.forEach(work => {
         createPage({

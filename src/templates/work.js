@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, graphql } from "gatsby";
+import TransitionLink from "gatsby-plugin-transition-link";
 import { createClient } from 'contentful';
+import styled from 'styled-components';
 
 import Layout from "../components/Layout";
 import Image from "../components/image";
@@ -14,6 +16,15 @@ const client = createClient({
   // This is the access token for this space. Normally you get both ID and the token in the Contentful web app
   accessToken: process.env.CF_ACCESS_TOKEN
 });
+
+const Container = styled.div`
+  transition: all 1000ms ease-out;
+
+  &.transitionOut {
+    opacity: 0;
+    transform: scale(0.25);
+  }
+`
 
 class WorkPage extends React.Component {
   state = {
@@ -58,9 +69,27 @@ class WorkPage extends React.Component {
     return (
       <Layout>
         <SEO title={ currentSlug } />
-        <div>Here we are { currentSlug }</div>
-        <Player url={pageContext.url}></Player>
-        <WorksList works={works} />
+
+        <Container className="transitionNode enterBack">
+          <div>Here we are { currentSlug }</div>
+          <Player url={pageContext.url}></Player>
+          <WorksList works={works} />
+          <TransitionLink
+            to="/about"
+            exit={{
+              length: 1,
+              trigger: ({ node, e, exit, entry }) => {
+                console.log('this is the exit', node, e, exit, entry)
+              }
+            }}
+            entry={{
+              length: 0,
+              trigger: ({ node, e, exit, entry }) =>{
+                console.log('this is the ENTRY', node, e, exit, entry)
+              }
+            }}
+            >About</TransitionLink>
+        </Container>
       </Layout>
     );
   }

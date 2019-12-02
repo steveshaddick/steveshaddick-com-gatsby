@@ -1,58 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, graphql } from "gatsby";
-import { createClient } from 'contentful';
+import { navigate } from "@reach/router";
 
 import Layout from "../components/Layout";
-import Image from "../components/image";
 import SEO from "../components/seo";
-import Player from "../components/Player";
-import WorksList from "../components/WorksList";
 
-const client = createClient({
-  // This is the space ID. A space is like a project folder in Contentful terms
-  space: process.env.CF_SPACE_ID,
-  // This is the access token for this space. Normally you get both ID and the token in the Contentful web app
-  accessToken: process.env.CF_ACCESS_TOKEN
-});
+function chooseRandomWork(works) {
+  const videoWorks = works.filter(work => work.type === "Video");
+  const randomIndex = Math.floor(Math.random() * videoWorks.length);
+  const work = videoWorks[randomIndex];
 
-class IndexPage extends React.Component {
-  state = {
-    loading: false,
-    error: false,
-    video: {
-      id: "",
-    },
-  }
+  navigate(`/work/${work.slug}`, { replace: true });
+}
 
-  componentDidMount() {
-    this.fetchVideo()
-  }
+const IndexPage = ({ data: { contentfulWorkList: { works } } }) => {
 
-  fetchVideo() {
-    this.setState({ loading: true });
-    client
-      .getEntry("eg9Kdh7zZqahCgCBCMC4k")
-      .then((response) => {
-        console.log("RETURNED", response);
-        this.setState({
-          video: {
-            id: response.fields.work.fields.vimeoId
-          }
-        })
-      })
-      .catch(err => console.log(err));
-  }
+  useEffect(() => chooseRandomWork(works), []);
 
-  render () {
-
-    return (
-      <Layout>
-        <SEO title="Home" />
-        <Player videoId={this.state.video.id}></Player>
-      </Layout>
-    );
-  }
+  return (
+    <Layout>
+      <SEO title="Home" />
+    </Layout>
+  );
 }
 
 export default IndexPage;
+
+export const pageQuery = graphql`
+  query {
+    contentfulWorkList(contentful_id: {eq: "1p5V0NNEhIoZedN0PVNirR"}) {
+      works {
+        contentful_id
+        slug
+        type
+      }
+    }
+  }
+`;
 

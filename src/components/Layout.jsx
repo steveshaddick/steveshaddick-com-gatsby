@@ -8,6 +8,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
+import { TransitionPortal } from "gatsby-plugin-transition-link"
 
 import "./layout.css"
 
@@ -33,9 +34,11 @@ const Layout = ({ children }) => {
         }}
       >
         <main>{children}</main>
-        <footer>
-          {data.site.siteMetadata.title}
-        </footer>
+        <TransitionPortal>
+          <footer>
+            {data.site.siteMetadata.title}
+          </footer>
+        </TransitionPortal>
       </div>
     </>
   )
