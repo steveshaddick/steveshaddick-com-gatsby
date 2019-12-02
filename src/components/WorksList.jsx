@@ -1,7 +1,10 @@
 import React from "react"
 import PropTypes from "prop-types"
 import styled from 'styled-components'
-import { Link } from "gatsby";
+import { Link, useStaticQuery, graphql } from "gatsby";
+
+const Container = styled.div`
+`;
 
 function renderListItem (work) {
   const { contentful_id, slug } = work;
@@ -12,21 +15,122 @@ function renderListItem (work) {
   )
 }
 
-const WorksList = ({ works }) => {
+const WorksList = () => {
+  const data = useStaticQuery(graphql`
+    query {
+      contentfulWorkList(contentful_id: {eq: "1p5V0NNEhIoZedN0PVNirR"}) {
+        works {
+          contentful_id
+          title
+          slug
+          type
+          image {
+            title
+            url
+          }
+          thumbnail {
+            title
+            url
+          }
+          info
+          url
+          description {
+            json
+          }
+        }
+      }
+    }
+  `);
+  const { contentfulWorkList: { works } } = data;
   const listItems = works.map(renderListItem);
-  
+
   return (
-    <ul>
-      {listItems}
-    </ul>
+    <Container>
+      <ul>
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+        {listItems}
+      </ul>
+    </Container>
   )
 }
 
-WorksList.propTypes = {
-  works: PropTypes.arrayOf(PropTypes.shape({
-    contentful_id: PropTypes.string,
-    slug: PropTypes.string
-  }))
-}
+export default WorksList;
 
-export default WorksList

@@ -640,3 +640,7 @@ pre tt:after {
   opacity: 1;
   transform: scale(1);
 }
+
+.gatsby-plugin-transition-link-portal {
+  transition: bottom 300ms ease-in;
+}

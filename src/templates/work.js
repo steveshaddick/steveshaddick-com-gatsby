@@ -1,14 +1,11 @@
 import React from "react";
-import { Link, graphql } from "gatsby";
 import TransitionLink from "gatsby-plugin-transition-link";
 import { createClient } from 'contentful';
 import styled from 'styled-components';
 
 import Layout from "../components/Layout";
-import Image from "../components/image";
 import SEO from "../components/seo";
 import Player from "../components/Player";
-import WorksList from "../components/WorksList";
 
 const client = createClient({
   // This is the space ID. A space is like a project folder in Contentful terms
@@ -56,7 +53,6 @@ class WorkPage extends React.Component {
 
   render () {
     const {
-      data: { contentfulWorkList: { works } },
       location,
       pageContext
     } = this.props;
@@ -64,8 +60,6 @@ class WorkPage extends React.Component {
     console.log(pageContext);
 
     const currentSlug = location.pathname.replace('/work/', '')
-
-    console.log(location, works);
     return (
       <Layout>
         <SEO title={ currentSlug } />
@@ -73,7 +67,6 @@ class WorkPage extends React.Component {
         <Container className="transitionNode enterBack">
           <div>Here we are { currentSlug }</div>
           <Player url={pageContext.url}></Player>
-          <WorksList works={works} />
           <TransitionLink
             to="/about"
             exit={{
@@ -96,29 +89,3 @@ class WorkPage extends React.Component {
 }
 
 export default WorkPage;
-
-export const pageQuery = graphql`
-  query {
-    contentfulWorkList(contentful_id: {eq: "1p5V0NNEhIoZedN0PVNirR"}) {
-      works {
-        contentful_id
-        title
-        slug
-        type
-        image {
-          title
-          url
-        }
-        thumbnail {
-          title
-          url
-        }
-        info
-        url
-        description {
-          json
-        }
-      }
-    }
-  }
-`;
