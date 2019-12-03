@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Link, graphql } from "gatsby";
 import { navigate } from "@reach/router";
 
-import Layout from "../components/Layout";
 import SEO from "../components/seo";
 
 function chooseRandomWork(works) {
@@ -18,9 +17,9 @@ const IndexPage = ({ data: { contentfulWorkList: { works } } }) => {
   useEffect(() => chooseRandomWork(works), []);
 
   return (
-    <Layout>
+    <>
       <SEO title="Home" />
-    </Layout>
+    </>
   );
 }
 

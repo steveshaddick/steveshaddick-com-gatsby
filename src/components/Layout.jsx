@@ -5,6 +5,7 @@ import { TransitionPortal } from "gatsby-plugin-transition-link"
 
 import Footer from '@components/Footer';
 
+import "focus-visible"
 import 'normalize.css';
 import '@components/layout.css';
 

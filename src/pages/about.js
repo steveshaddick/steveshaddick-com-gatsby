@@ -25,7 +25,7 @@ const AboutPage = ({ data: { contentfulPage: { title, description } } }) => {
   console.log(description);
 
   return (
-    <Layout>
+    <>
       <SEO title={ title } />
       <Container className="transitionNode enterFore">
         {documentToReactComponents(description.json)}
@@ -45,7 +45,7 @@ const AboutPage = ({ data: { contentfulPage: { title, description } } }) => {
           }}
           >Dusk Lighting</TransitionLink>
       </Container>
-    </Layout>
+    </>
   )
 }
 

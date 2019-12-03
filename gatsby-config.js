@@ -24,6 +24,7 @@ module.exports = {
           "@src": "src",
           "@components": "src/components",
           "@layouts": "src/layouts",
+          "@images": "src/images",
           "@pages": "src/pages",
           "@sass": "src/sass",
           "@templates": "src/templates",
@@ -35,7 +36,12 @@ module.exports = {
       }
     },
     `gatsby-transformer-sharp`,
-    `gatsby-plugin-transition-link`,
+    {
+      resolve: "gatsby-plugin-transition-link",
+      options: {
+        layout: require.resolve(`./src/components/Layout.jsx`)
+      }
+    },
     `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-manifest`,
@@ -48,6 +54,15 @@ module.exports = {
         display: `minimal-ui`,
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
+    },
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [
+          `rubik:400, 700` // you can also specify font weights and styles
+        ],
+        display: 'swap'
+      }
     },
     {
       resolve: `gatsby-plugin-styled-components`,

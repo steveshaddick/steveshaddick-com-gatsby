@@ -6,16 +6,16 @@ import { Link, useStaticQuery, graphql } from "gatsby";
 const Container = styled.div`
 `;
 
-function renderListItem (work) {
+function renderListItem (work, onClick) {
   const { contentful_id, slug } = work;
   return (
     <li key={contentful_id}>
-      <Link to={`/work/${slug}`}>{slug}</Link>
+      <Link to={`/work/${slug}`} onClick={onClick}>{slug}</Link>
     </li>
   )
 }
 
-const WorksList = () => {
+const WorksList = ({ onClick }) => {
   const data = useStaticQuery(graphql`
     query {
       contentfulWorkList(contentful_id: {eq: "1p5V0NNEhIoZedN0PVNirR"}) {
@@ -42,7 +42,7 @@ const WorksList = () => {
     }
   `);
   const { contentfulWorkList: { works } } = data;
-  const listItems = works.map(renderListItem);
+  const listItems = works.map((work) => renderListItem(work, onClick));
 
   return (
     <Container>

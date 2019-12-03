@@ -1,10 +1,15 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { Link, useStaticQuery, graphql } from "gatsby"
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 import WorksList from "@components/WorksList";
+import SignatureLink from "@components/SignatureLink"
+import InternalLink from "@components/InternalLink"
 
+/**
+ * STYLES
+ */
 const Container = styled.div`
   margin: 0 auto;
   max-width: 1200px;
@@ -19,25 +24,64 @@ const WorksListContainer = styled.div`
   transition: max-height 300ms ease-out;
 `;
 
+const BarContainer = styled.div`
+  width: 100%;
+  padding: 5px 0;
+  position: sticky;
+  top: 0;
+
+  display: flex;
+  justify-content: space-between;
+`
+
+const Nav = styled.nav`
+  display: flex;
+
+  > * {
+    margin: auto 10px;
+  }
+`
+
+const FakeLink = styled.button`
+  color: grey;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: none;
+  background: transparent;
+  background-image: linear-gradient(#8CA6B4, #8CA6B4);
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  background-size: 0 2px;
+  opacity: 0.7;
+
+  transition: background-size 133ms ease-in-out, opacity 266ms ease-out;
+
+  &.focus-visible,
+  &:hover {
+    background-size: 100% 2px;
+    opacity: 1;
+  }
+`
+
 const Component = styled.div`
   width: 100%;
   position: fixed;
   top: 100vh;
+  transition: top 266ms cubic-bezier(0.86, 0, 0.07, 1), background-color 1000ms linear;
+  background-color: white;
 
   /*transition: top 200ms ease-in;*/
 
-  footer {
-    width: 100%;
-    background: white;
-    padding: 15px 0;
-    position: sticky;
-    top: 0;
+  &:focus-within,
+  &:hover {
+    background-color: #FAFAFA;
   }
 
   &.expanded {
     top: 0 !important;
     overflow: auto;
-    transition: top 200ms ease-out;
+    background-color: #FAFAFA;
 
     ${Container} {
       height: 100%;
@@ -50,6 +94,10 @@ const Component = styled.div`
     }
   }
 `;
+
+/**
+ * CODE
+ */
 
 class Footer extends React.Component {
   state = {
@@ -90,20 +138,26 @@ class Footer extends React.Component {
     const { isExpanded } = this.state;
     const componentClassList = isExpanded ? 'expanded' : '';
 
+    console.log('FOOTER PROPS', this.props);
+
     return (
       <Component className={componentClassList} ref={this.refComponent}>
         <Container>
-          <footer ref={this.refFooter}>
-            <nav role="navigation">
-              <Link to="/">Steve Shaddick</Link>
-              <Link to="/about" onClick={() => this.collapseFooter()}>About</Link>
-              <button onClick={() => this.expandFooter()}>Work</button>
-              <button onClick={() => this.collapseFooter()}>Close</button>
-            </nav>
-          </footer>
+          <BarContainer ref={this.refFooter}>
+            <SignatureLink />
+            <Nav role="navigation">
+              <InternalLink to="/about">About</InternalLink>
+              {!isExpanded &&
+                <FakeLink onClick={() => this.expandFooter()}>Work</FakeLink>
+              }
+              {isExpanded &&
+                <FakeLink onClick={() => this.collapseFooter()}>Close</FakeLink>
+              }
+            </Nav>
+          </BarContainer>
 
           <WorksListContainer>
-            <WorksList />
+            <WorksList onClick={() => this.collapseFooter()} />
           </WorksListContainer>
 
         </Container>

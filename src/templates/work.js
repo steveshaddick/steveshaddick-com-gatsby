@@ -3,7 +3,6 @@ import TransitionLink from "gatsby-plugin-transition-link";
 import { createClient } from 'contentful';
 import styled from 'styled-components';
 
-import Layout from "../components/Layout";
 import SEO from "../components/seo";
 import Player from "../components/Player";
 
@@ -61,12 +60,13 @@ class WorkPage extends React.Component {
 
     const currentSlug = location.pathname.replace('/work/', '')
     return (
-      <Layout>
+      <>
         <SEO title={ currentSlug } />
 
         <Container className="transitionNode enterBack">
           <div>Here we are { currentSlug }</div>
           <Player url={pageContext.url}></Player>
+          
           <TransitionLink
             to="/about"
             exit={{
@@ -76,14 +76,14 @@ class WorkPage extends React.Component {
               }
             }}
             entry={{
-              length: 0,
+              length: 1,
               trigger: ({ node, e, exit, entry }) =>{
                 console.log('this is the ENTRY', node, e, exit, entry)
               }
             }}
             >About</TransitionLink>
         </Container>
-      </Layout>
+      </>
     );
   }
 }
