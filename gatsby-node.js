@@ -16,13 +16,8 @@ exports.sourceNodes = ({ actions }) => {
       slug: String
       type: String
       url: String
-      image: ContentfulImage
-      thumbnail: ContentfulImage
-    }
-
-    type ContentfulImage implements Node {
-      title: String
-      url: String
+      image: ContentfulAsset
+      thumbnail: ContentfulAsset
     }
   `
   createTypes(typeDefs)
@@ -43,11 +38,15 @@ exports.createPages = ({ graphql, actions }) => {
             url
             image {
               title
-              url
+              file {
+                url
+              }
             }
             thumbnail {
               title
-              url
+              file {
+                url
+              }
             }
           }
         }

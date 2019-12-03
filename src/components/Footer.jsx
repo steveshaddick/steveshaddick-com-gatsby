@@ -84,13 +84,20 @@ const Component = styled.div`
     background-color: #FAFAFA;
 
     ${Container} {
-      height: 100%;
+      height: 100vh;
       overflow: auto;
+    }
+
+    ${BarContainer} {
+      background: rgba(250,250,250,0.95);
+      box-shadow: rgba(50,50,50,0.25) 0px 1px 20px 1px;
+      z-index: 10;
     }
 
     ${WorksListContainer} {
       max-height: 100000000px;
       overflow: auto;
+      background-color: #FAFAFA;
     }
   }
 `;
