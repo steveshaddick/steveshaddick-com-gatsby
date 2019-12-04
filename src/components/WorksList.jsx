@@ -23,8 +23,8 @@ const List = styled.ul`
 const ListItem = styled.li`
   height: 125px;
   width: 125px;
-  padding: 5px;
-  margin: 5px;
+  padding: 0;
+  margin: 10px;
   transition: box-shadow 2000ms ease-out;
   box-shadow: rgba(50,50,50,0) 0px 1px 20px 1px;
 
@@ -37,21 +37,40 @@ const ListItem = styled.li`
 const ListImage = styled(Img)`
   height: 100%;
   width: 100%;
+`;
+
+const ListImageContainer = styled.div`
+  height: 100%;
+  width: 100%;
   opacity: 0.9;
   transition: opacity 1000ms ease-out;
-`;
+  padding: 5px;
+  background: white;
+`
+
+const TitleCardTitle = styled.span`
+  color: rgb(45,45,45);
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1.8rem;
+`
+
+const TitleCardType = styled.span`
+  color: rgb(145,145,145);
+  display: block;
+  font-size: 1.4rem;
+`
 
 const TitleCard = styled.div`
   position: absolute;
-  width: 100%;
+  width: calc(100% + 10px);
   background: white;
   top: 0;
   opacity: 0;
   transition: opacity 266ms ease-out, top 266ms cubic-bezier(0.86, 0, 0.07, 1);
   z-index: 10;
-  color: rgb(45,45,45);
   line-height: 1.1;
-  padding: 5px 5px 10px;
+  padding: 8px 8px 12px;
   text-align: left;
 `
 
@@ -64,11 +83,11 @@ const StyledLink = styled(Link)`
   &:hover {
     ${TitleCard} {
       opacity: 1;
-      top: 100%;
-      box-shadow: rgba(50,50,50,0.25) 0px 10px 10px 1px;
+      top: 85%;
+      box-shadow: rgba(50,50,50,0.25) 0px 1px 10px 1px;
     }
 
-    ${ListImage} {
+    ${ListImageContainer} {
       opacity: 1;
     }
   }
@@ -78,13 +97,17 @@ const StyledLink = styled(Link)`
  * CODE
  */
 function renderListItem (work, onClick) {
-  const { contentful_id, slug, image, title } = work;
-  console.log(work)
+  const { contentful_id, slug, image, title, type } = work;
   return (
     <ListItem key={contentful_id}>
       <StyledLink to={`/work/${slug}`} onClick={onClick}>
-        <TitleCard>{title}</TitleCard>
-        <ListImage fluid={image.fluid} />
+        <ListImageContainer>
+          <ListImage fluid={image.fluid} />
+        </ListImageContainer>
+        <TitleCard>
+          <TitleCardTitle>{title}</TitleCardTitle>
+          <TitleCardType>{type}</TitleCardType>
+        </TitleCard>
       </StyledLink>
     </ListItem>
   )

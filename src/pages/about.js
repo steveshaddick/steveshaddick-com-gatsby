@@ -1,10 +1,10 @@
 import React from "react"
 import { Link, graphql } from "gatsby";
-import TransitionLink from "gatsby-plugin-transition-link";
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import styled from 'styled-components';
 
-import Layout from "../components/Layout"
+import PageContainer from "@components/PageContainer"
+import InternalLink from "@components/InternalLink"
 import SEO from "../components/seo"
 
 const Container = styled.div`
@@ -22,30 +22,18 @@ const Container = styled.div`
 `
 
 const AboutPage = ({ data: { contentfulPage: { title, description } } }) => {
-  console.log(description);
 
   return (
-    <>
+    <PageContainer className="transitionNode enterFore exitFore">
       <SEO title={ title } />
-      <Container className="transitionNode enterFore">
+      <Container>
         {documentToReactComponents(description.json)}
-        <TransitionLink
+        <InternalLink
           to="/work/dusk-lighting"
-          exit={{
-            length: 1,
-            trigger: ({ node, e, exit, entry }) => {
-              console.log('this is the exit', node, e, exit, entry)
-            }
-          }}
-          entry={{
-            length: 0,
-            trigger: ({ node, e, exit, entry }) =>{
-              console.log('this is the ENTRY', node, e, exit, entry)
-            }
-          }}
-          >Dusk Lighting</TransitionLink>
+          pageType="Work"
+          >Dusk Lighting</InternalLink>
       </Container>
-    </>
+    </PageContainer>
   )
 }
 

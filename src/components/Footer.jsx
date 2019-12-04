@@ -12,11 +12,11 @@ import InternalLink from "@components/InternalLink"
  */
 const Container = styled.div`
   margin: 0 auto;
-  max-width: 1200px;
 `;
 
 const WorksListContainer = styled.div`
-  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   background: white;
   max-height: 0;
   overflow: hidden;
@@ -25,13 +25,18 @@ const WorksListContainer = styled.div`
 `;
 
 const BarContainer = styled.div`
-  width: 100%;
   padding: 5px 0;
-  position: sticky;
-  top: 0;
+  margin: 0 auto;
+  max-width: 1200px;
 
   display: flex;
   justify-content: space-between;
+`
+
+const BarComponent = styled.div`
+  width: 100%;
+  position: sticky;
+  top: 0;
 `
 
 const Nav = styled.nav`
@@ -82,21 +87,20 @@ const Component = styled.div`
     top: 0 !important;
     overflow: auto;
     background-color: #FAFAFA;
+    height: 100vh;
 
     ${Container} {
-      height: 100vh;
-      overflow: auto;
     }
 
-    ${BarContainer} {
+    ${BarComponent} {
       background: rgba(250,250,250,0.95);
       box-shadow: rgba(50,50,50,0.25) 0px 1px 20px 1px;
-      z-index: 10;
+      z-index: 1000;
     }
 
     ${WorksListContainer} {
       max-height: 100000000px;
-      overflow: auto;
+      overflow: visible;
       background-color: #FAFAFA;
     }
   }
@@ -108,11 +112,14 @@ const Component = styled.div`
 
 class Footer extends React.Component {
   state = {
-    isExpanded: false
+    isExpanded: false,
+    loadList: false
   };
 
   constructor () {
     super();
+
+    this.loadListTimeout = null
 
     this.refFooter = React.createRef();
     this.refComponent = React.createRef();
@@ -120,6 +127,12 @@ class Footer extends React.Component {
 
   expandFooter () {
     this.refComponent.current.style.top = `calc(100vh - ${this.refFooter.current.offsetHeight}px)`;
+
+    this.loadListTimeout = setTimeout(() => {
+      this.setState({
+        loadList: true
+      })
+    }, 500)
 
     this.setState({
       isExpanded: true,
@@ -129,42 +142,48 @@ class Footer extends React.Component {
   collapseFooter () {
     this.setState({
       isExpanded: false,
+      loadList: false
     });
 
   }
 
   componentDidMount() {
-    console.log('MOUNT', this.refFooter.current.offsetHeight);
     setTimeout(() => {
       this.refComponent.current.style.top = `calc(100vh - ${this.refFooter.current.offsetHeight}px)`;
     }, 1000);
   }
 
+  componentWillUnmount() {
+    this.loadListTimeout = null
+  }
+
   render () {
 
-    const { isExpanded } = this.state;
+    const { isExpanded, loadList } = this.state;
     const componentClassList = isExpanded ? 'expanded' : '';
-
-    console.log('FOOTER PROPS', this.props);
 
     return (
       <Component className={componentClassList} ref={this.refComponent}>
         <Container>
-          <BarContainer ref={this.refFooter}>
-            <SignatureLink />
-            <Nav role="navigation">
-              <InternalLink to="/about">About</InternalLink>
-              {!isExpanded &&
-                <FakeLink onClick={() => this.expandFooter()}>Work</FakeLink>
-              }
-              {isExpanded &&
-                <FakeLink onClick={() => this.collapseFooter()}>Close</FakeLink>
-              }
-            </Nav>
-          </BarContainer>
+          <BarComponent>
+            <BarContainer ref={this.refFooter}>
+              <SignatureLink />
+              <Nav role="navigation">
+                <InternalLink to="/about">About</InternalLink>
+                {!isExpanded &&
+                  <FakeLink onClick={() => this.expandFooter()}>Work</FakeLink>
+                }
+                {isExpanded &&
+                  <FakeLink onClick={() => this.collapseFooter()}>Close</FakeLink>
+                }
+              </Nav>
+            </BarContainer>
+          </BarComponent>
 
           <WorksListContainer>
-            <WorksList onClick={() => this.collapseFooter()} />
+            {loadList &&
+              <WorksList onClick={() => this.collapseFooter()} />
+            }
           </WorksListContainer>
 
         </Container>

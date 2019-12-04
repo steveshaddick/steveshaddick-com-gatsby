@@ -1,10 +1,15 @@
 import React from "react";
-import TransitionLink from "gatsby-plugin-transition-link";
+import { Link, graphql } from "gatsby";
 import { createClient } from 'contentful';
 import styled from 'styled-components';
+import { TransitionState } from "gatsby-plugin-transition-link"
 
+import InternalLink from "@components/InternalLink"
+
+import PageContainer from "@components/PageContainer"
 import SEO from "../components/seo";
 import Player from "../components/Player";
+import { ENETRESET } from "constants";
 
 const client = createClient({
   // This is the space ID. A space is like a project folder in Contentful terms
@@ -56,34 +61,58 @@ class WorkPage extends React.Component {
       pageContext
     } = this.props;
 
-    console.log(pageContext);
-
     const currentSlug = location.pathname.replace('/work/', '')
     return (
-      <>
-        <SEO title={ currentSlug } />
+      <TransitionState>
+        {({ entry, exit }) => {
+          let transitionClassName = ''
+          if (entry.state.transitionType) {
+            console.log('work using ENTRY', entry.state.transitionType)
+            transitionClassName = entry.state.transitionType
+          } else if (exit.state.transitionType) {
+            console.log('work using EXIT', exit.state.transitionType)
+            transitionClassName = exit.state.transitionType
+          }
 
-        <Container className="transitionNode enterBack">
-          <div>Here we are { currentSlug }</div>
-          <Player url={pageContext.url}></Player>
-          
-          <TransitionLink
-            to="/about"
-            exit={{
-              length: 1,
-              trigger: ({ node, e, exit, entry }) => {
-                console.log('this is the exit', node, e, exit, entry)
-              }
-            }}
-            entry={{
-              length: 1,
-              trigger: ({ node, e, exit, entry }) =>{
-                console.log('this is the ENTRY', node, e, exit, entry)
-              }
-            }}
-            >About</TransitionLink>
-        </Container>
-      </>
+          return (
+            <PageContainer className={`transitionNode ${transitionClassName}`}>
+              <SEO title={ currentSlug } />
+
+              <Container>
+                <div>Here we are { currentSlug }</div>
+                <Player url={pageContext.url}></Player>
+                
+                <InternalLink
+                  to="/about"
+                  pageType="About"
+                  >About</InternalLink>
+                <br />
+                <InternalLink
+                  to="/work/around-about"
+                  pageType="Work"
+                  >Around About</InternalLink>
+                <br />
+                <InternalLink
+                  to="/work/dusk-lighting"
+                  pageType="Work"
+                  >Dusk Lighting</InternalLink>
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+              </Container>
+            </PageContainer>
+          )
+        }}
+      </TransitionState>
     );
   }
 }

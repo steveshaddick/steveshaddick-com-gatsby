@@ -1,6 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
+import { Link, graphql } from "gatsby";
 
 import TransitionLink from "gatsby-plugin-transition-link"
 
@@ -22,24 +23,52 @@ const StyledLink = styled(TransitionLink)`
   }
 `;
 
-const InternalLink = ({ to, children, onClick }) => (
-  <StyledLink
-    to={to}
-    onClick={onClick}
-    exit={{
-      length: 1,
-      trigger: ({ node, e, exit, entry }) => {
-        console.log('this is the exit', node, e, exit, entry)
+const InternalLink = ({ to, children, onClick, pageType }) => {
+  let entryState = {}
+  let exitState = {}
+  if (window._pageType !== pageType) {
+    if (window._pageType === 'About') {
+      entryState = {
+        transitionType:'enterBack'
       }
-    }}
-    entry={{
-      length: 1,
-      trigger: ({ node, e, exit, entry }) =>{
-        console.log('this is the ENTRY', node, e, exit, entry)
+    } else if (window._pageType === 'Work') {
+      exitState = {
+        transitionType: 'enterBack'
       }
-    }}
-    >{ children }</StyledLink>
-)
+    }
+  }
+
+  return (
+    <StyledLink
+      to={to}
+      onClick={onClick}
+      exit={{
+        length: 0.4,
+        trigger: ({ node }) => {
+          console.log('EXIT TRIGGER', window._pageType , pageType)
+          if (window._pageType !== pageType) {
+            if (window._pageType === 'Work') {
+              console.log(node.querySelector('.transitionNode'))
+              node.querySelector('.transitionNode').classList.add('exitFore')
+            }
+          }
+        }
+      }}
+      entry={{
+        length: 0,
+        trigger: ({ node }) => {
+          console.log('ENTRY TRIGGER', window._pageType , pageType)
+          if (window._pageType !== pageType) {
+            if (pageType === 'Work') {
+              console.log(node.querySelector('.transitionNode'))
+              node.querySelector('.transitionNode').classList.add('enterBack')
+            }
+          }
+          window._pageType = pageType
+        }
+      }}
+      >{ children }</StyledLink>
+  )}
 
 InternalLink.propTypes = {
   to: PropTypes.string,
