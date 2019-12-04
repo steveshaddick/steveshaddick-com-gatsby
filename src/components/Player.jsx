@@ -7,7 +7,6 @@ import ReactPlayer from 'react-player'
 const Container = styled.div`
   position: relative;
   padding-top: 56.25%; /* Player ratio: 100 / (1280 / 720) */
-  box-shadow: rgba(0,0,0,0.25) 0px 0px 25px 5px;
 
   .ReactPlayer {
     position: absolute;

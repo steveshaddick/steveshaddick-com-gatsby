@@ -36,6 +36,10 @@ exports.createPages = ({ graphql, actions }) => {
             slug
             type
             url
+            info
+            description {
+              json
+            }
             image {
               title
               file {
@@ -57,12 +61,12 @@ exports.createPages = ({ graphql, actions }) => {
         console.log("Error retrieving contentful data",      result.errors);
       }
       // Resolve the paths to our template
-      const blogPostTemplate = path.resolve("./src/templates/work.js");
+      const workTemplate = path.resolve("./src/templates/work.js");
       // Then for each result we create a page.
       result.data.contentfulWorkList.works.forEach(work => {
         createPage({
           path: `/work/${work.slug}/`,
-          component: slash(blogPostTemplate),
+          component: slash(workTemplate),
           context: {
             id: work.contentful_id,
             title: work.title,
@@ -71,6 +75,8 @@ exports.createPages = ({ graphql, actions }) => {
             thumbnail: work.thumbnail,
             type: work.type,
             url: work.url,
+            info: work.info,
+            description: work.description,
           }
         });
       });

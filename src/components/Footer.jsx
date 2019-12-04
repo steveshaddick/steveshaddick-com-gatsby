@@ -37,6 +37,29 @@ const BarComponent = styled.div`
   width: 100%;
   position: sticky;
   top: 0;
+
+  a,
+  button {
+    color: grey;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: none;
+    background: transparent;
+    background-image: linear-gradient(#8CA6B4, #8CA6B4);
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-size: 0 2px;
+    opacity: 0.7;
+
+    transition: background-size 133ms ease-in-out, opacity 266ms ease-out;
+
+    &.focus-visible,
+    &:hover {
+      background-size: 100% 2px;
+      opacity: 1;
+    }
+  }
 `
 
 const Nav = styled.nav`
@@ -47,40 +70,26 @@ const Nav = styled.nav`
   }
 `
 
+const StyledLink = styled(InternalLink)`
+`;
+
 const FakeLink = styled.button`
-  color: grey;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  text-decoration: none;
-  background: transparent;
-  background-image: linear-gradient(#8CA6B4, #8CA6B4);
-  background-repeat: no-repeat;
-  background-position: left bottom;
-  background-size: 0 2px;
-  opacity: 0.7;
-
-  transition: background-size 133ms ease-in-out, opacity 266ms ease-out;
-
-  &.focus-visible,
-  &:hover {
-    background-size: 100% 2px;
-    opacity: 1;
-  }
 `
 
 const Component = styled.div`
   width: 100%;
   position: fixed;
   top: 100vh;
-  transition: top 266ms cubic-bezier(0.86, 0, 0.07, 1), background-color 1000ms linear;
+  transition: top 266ms cubic-bezier(0.86, 0, 0.07, 1), box-shadow 700ms linear;
   background-color: white;
+  box-shadow: rgba(100,100,100,0) 1px 1px 10px 1px;
+  border-top: 1px solid rgb(220, 220, 200, 0.5);
 
   /*transition: top 200ms ease-in;*/
 
   &:focus-within,
   &:hover {
-    background-color: #FAFAFA;
+    box-shadow: rgba(100,100,100,0.1) 1px 1px 10px 1px;
   }
 
   &.expanded {
@@ -169,7 +178,7 @@ class Footer extends React.Component {
             <BarContainer ref={this.refFooter}>
               <SignatureLink />
               <Nav role="navigation">
-                <InternalLink to="/about">About</InternalLink>
+                <StyledLink to="/about">About</StyledLink>
                 {!isExpanded &&
                   <FakeLink onClick={() => this.expandFooter()}>Work</FakeLink>
                 }

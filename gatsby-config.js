@@ -60,7 +60,8 @@ module.exports = {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
         fonts: [
-          `rubik:400, 700` // you can also specify font weights and styles
+          `rubik:400, 700`,
+          `martel:400, 700`
         ],
         display: 'swap'
       }
@@ -78,6 +79,7 @@ module.exports = {
         accessToken: process.env.CF_ACCESS_TOKEN
       }
     },
+    `@contentful/gatsby-transformer-contentful-richtext`
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

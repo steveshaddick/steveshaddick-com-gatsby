@@ -5,25 +5,7 @@ import { Link, graphql } from "gatsby";
 
 import TransitionLink from "gatsby-plugin-transition-link"
 
-const StyledLink = styled(TransitionLink)`
-  color: grey;
-  text-decoration: none;
-  background-image: linear-gradient(#8CA6B4, #8CA6B4);
-  background-repeat: no-repeat;
-  background-position: left bottom;
-  background-size: 0 2px;
-  opacity: 0.7;
-
-  transition: background-size 133ms ease-in-out, opacity 266ms ease-out;
-
-  &.focus-visible,
-  &:hover {
-    background-size: 100% 2px;
-    opacity: 1;
-  }
-`;
-
-const InternalLink = ({ to, children, onClick, pageType }) => {
+const InternalLink = ({ className, to, children, onClick, pageType }) => {
   let entryState = {}
   let exitState = {}
   if (window._pageType !== pageType) {
@@ -39,7 +21,8 @@ const InternalLink = ({ to, children, onClick, pageType }) => {
   }
 
   return (
-    <StyledLink
+    <TransitionLink
+      className={className}
       to={to}
       onClick={onClick}
       exit={{
@@ -67,7 +50,7 @@ const InternalLink = ({ to, children, onClick, pageType }) => {
           window._pageType = pageType
         }
       }}
-      >{ children }</StyledLink>
+      >{ children }</TransitionLink>
   )}
 
 InternalLink.propTypes = {
