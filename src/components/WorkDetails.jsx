@@ -3,6 +3,8 @@ import PropTypes from "prop-types"
 import styled from "styled-components"
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
+import InternalLink from "@components/InternalLink"
+
 const Title = styled.h1`
   margin-bottom: 0;
 `
@@ -16,23 +18,38 @@ const Description = styled.div`
 const Container = styled.div`
 `
 
-const WorkDetails = ({
+const WorkDetails = React.memo(({
   title,
   type,
   info,
   description,
   url
-}) => (
-  <Container>
-    <Title>{title}</Title>
-    <Info>{type} {info}</Info>
-    {description &&
-      <Description>
-        {documentToReactComponents(description.json)}
-      </Description>
-    }
-  </Container>
-)
+}) => {
+  let infoBits = []
+  if (type) {
+    infoBits.push((<span>{type}</span>))
+  }
+  if (type === 'Website') {
+    infoBits.push((<InternalLink>{url}</InternalLink>))
+  }
+  if (info) {
+    infoBits.push((<span>{info}</span>))
+  }
+
+  const infoOutput = infoBits.reduce((prev, curr) => [prev, ' ', curr])
+  console.log(infoOutput)
+  
+  return (
+    <Container>
+      <Title>{title}</Title>
+      <Info>{infoBits.reduce((prev, curr) => [prev, ' ', curr])}</Info>
+      {description &&
+        <Description>
+          {documentToReactComponents(description.json)}
+        </Description>
+      }
+    </Container>
+  )})
 
 WorkDetails.propTypes = {
   title: PropTypes.string,

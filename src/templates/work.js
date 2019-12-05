@@ -9,14 +9,15 @@ import InternalLink from "@components/InternalLink"
 import PageContainer from "@components/PageContainer"
 import SEO from "@components/seo"
 import Player from "@components/Player"
+import WebsiteImageLink from "@components/WebsiteImageLink"
 import WorkDetails from "@components/WorkDetails"
 
+
 const client = createClient({
-  // This is the space ID. A space is like a project folder in Contentful terms
   space: process.env.CF_SPACE_ID,
-  // This is the access token for this space. Normally you get both ID and the token in the Contentful web app
   accessToken: process.env.CF_ACCESS_TOKEN
 });
+
 
 const Container = styled.article`
   transition: all 1000ms ease-out;
@@ -65,6 +66,7 @@ class WorkPage extends React.Component {
       title,
       type,
       info,
+      image,
       description,
       url
     } = pageContext
@@ -87,7 +89,17 @@ class WorkPage extends React.Component {
               <SEO title={ currentSlug } />
 
               <Container>
-                <Player url={pageContext.url}></Player>
+                {type === "Video" &&
+                  <Player url={url}></Player>
+                } 
+                {type === "Website" &&
+                  <WebsiteImageLink
+                    image={image}
+                    url={url}
+                    title={title} 
+                  />
+                } 
+
                 <WorkDetails {...pageContext} />
                 
                 <InternalLink

@@ -42,9 +42,13 @@ exports.createPages = ({ graphql, actions }) => {
             }
             image {
               title
-              file {
-                url
-              }
+              fluid(maxWidth: 1000, quality: 85) {           
+                base64
+                aspectRatio
+                src
+                srcSet
+                sizes     
+              } 
             }
             thumbnail {
               title

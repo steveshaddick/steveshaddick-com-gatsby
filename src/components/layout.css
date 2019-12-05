@@ -16,18 +16,17 @@ h1, h2, h3 {
 }
 
 a, a:visited {
-  color: #6C7E89;
-  text-decoration: none;
-  background-image: linear-gradient(#8CA6B4, #8CA6B4);
-  background-repeat: no-repeat;
-  background-position: right bottom;
-  background-size: 100% 2px;
+  color:inherit;
+  text-decoration: underline;
+  text-decoration-color: rgba(140, 166, 180, 0.33);
+  text-decoration-thickness: .1em;
+  text-underline-offset: 2px;
 
-  transition: background-size 133ms ease-in-out, color 266ms ease-out;
+  transition: text-decoration-color 133ms ease-in-out, color 266ms ease-out;
 }
 a.focus-visible,
 a:hover {
-  background-size: 0% 2px;
+  text-decoration-color: rgba(140, 166, 180, 1);
 }
 
 .tl-wrapper .transitionNode {
