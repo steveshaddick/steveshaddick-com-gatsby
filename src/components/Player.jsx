@@ -12,6 +12,7 @@ const Container = styled.div`
     position: absolute;
     top: 0;
     left: 0;
+    background: rgb(100,100,100);
   }
 `
 

@@ -178,7 +178,7 @@ class Footer extends React.Component {
             <BarContainer ref={this.refFooter}>
               <SignatureLink />
               <Nav role="navigation">
-                <StyledLink to="/about">About</StyledLink>
+                <StyledLink to="/about" type="About">About</StyledLink>
                 {!isExpanded &&
                   <FakeLink onClick={() => this.expandFooter()}>Work</FakeLink>
                 }

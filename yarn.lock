@@ -838,11 +838,6 @@
   dependencies:
     "@contentful/rich-text-types" "^13.4.0"
 
-"@contentful/rich-text-types@^12.1.2":
-  version "12.1.2"
-  resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-12.1.2.tgz#3ac70eb49e7636705e5b962d3c91e2cffbee5e5a"
-  integrity sha512-AFLfDBKEj/6zYg4srg0165d3zyw5iprVjyW/Mll0C8IXT1VPadXIhkcA28N5BKYzOtykuJ2wOYNqvs1zAkNpUQ==
-
 "@contentful/rich-text-types@^13.4.0":
   version "13.4.0"
   resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-13.4.0.tgz#a59c311ebd1b801ee00edbc08663c8d78da26171"
@@ -1175,13 +1170,6 @@
   integrity sha512-7RDfxQ2C/rarNG9iso5vmnKQbcvlQjBIlF/p7/uYj72WeZgVCB+5t1fFBKJSU4WhniHX4jUMijK+wYGE3Y3bGw==
   dependencies:
     core-js "^2.5.7"
-
-"@madebyconnor/rich-text-to-jsx@^2.1.3":
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/@madebyconnor/rich-text-to-jsx/-/rich-text-to-jsx-2.1.3.tgz#4cfe2ba8338bc58fc4a0556940cb2c71cadc30ae"
-  integrity sha512-AZV4qfd5NMVXVKFP70uK5X7bOejDs4enUKv7brJ4VhHZOw0VSUM3Np7b/1RS1AUJQ0KGl63cfA1IbZ2vNqGLvA==
-  dependencies:
-    "@contentful/rich-text-types" "^12.1.2"
 
 "@mikaelkristiansson/domready@^1.0.9":
   version "1.0.9"
