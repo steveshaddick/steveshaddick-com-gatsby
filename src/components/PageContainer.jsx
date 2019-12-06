@@ -10,6 +10,8 @@ const Container = styled.div`
   padding-bottom: 100px;
   background: #fafafa;
   padding-top: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
 
   @media ${PALM} {
     padding-left: 15px;

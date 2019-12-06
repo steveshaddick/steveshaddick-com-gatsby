@@ -1,8 +1,9 @@
-import React from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import styled from 'styled-components'
 
 import ReactPlayer from 'react-player'
+import Spinner from "@components/Spinner"
 
 const Container = styled.div`
   position: relative;
@@ -12,23 +13,31 @@ const Container = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    background: rgb(100,100,100);
+    background: rgb(240,240,240);
   }
 `
 
-const Player = ({ url, loop, controls }) => (
-  <Container>
-    <ReactPlayer
-      className="ReactPlayer"
-      url={url}
-      loop={loop}
-      controls={controls}
-      playing
-      width='100%'
-      height='100%'
-      />
-  </Container>
-)
+const Player = ({ url, loop, controls }) => {
+  const [isReady, setReady] = useState(false);
+  
+  return (
+    <Container>
+      <ReactPlayer
+        className="ReactPlayer"
+        url={url}
+        loop={loop}
+        controls={controls}
+        playing
+        width='100%'
+        height='100%'
+        onReady={()=> { setReady(true); }}
+        />
+      {!isReady && 
+        <Spinner />
+      }
+    </Container>
+  )
+}
 
 Player.propTypes = {
   url: PropTypes.string,

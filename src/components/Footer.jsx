@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import WorksList from "@components/WorksList";
 import SignatureLink from "@components/SignatureLink"
 import InternalLink from "@components/InternalLink"
+import Spinner from "@components/Spinner"
 
 import { PALM } from "@global/constants"
 
@@ -41,6 +42,8 @@ const BarComponent = styled.div`
   top: 0;
   opacity: 0.65;
   transition: opacity 266ms ease-in-out;
+  padding-left: 20px;
+  padding-right: 20px;
 
   &.focus-within,
   &:hover {
@@ -113,6 +116,7 @@ const Component = styled.div`
     height: 100vh;
 
     ${Container} {
+      min-height: 100vh;
     }
 
     ${BarComponent} {
@@ -205,6 +209,9 @@ class Footer extends React.Component {
           </BarComponent>
 
           <WorksListContainer>
+            {(isExpanded && !loadList) &&
+              <Spinner />
+            }
             {loadList &&
               <WorksList onClick={() => this.collapseFooter()} />
             }

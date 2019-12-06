@@ -56,7 +56,6 @@ class WorkPage extends React.Component {
     client
       .getEntry("eg9Kdh7zZqahCgCBCMC4k")
       .then((response) => {
-        console.log("RETURNED", response);
         this.setState({
           video: {
             id: response.fields.work.fields.vimeoId
@@ -80,8 +79,6 @@ class WorkPage extends React.Component {
       loop,
       controls
     } = pageContext
-
-    console.log(pageContext)
 
     const currentSlug = location.pathname.replace('/work/', '')
     return (
