@@ -7,6 +7,8 @@ import WorksList from "@components/WorksList";
 import SignatureLink from "@components/SignatureLink"
 import InternalLink from "@components/InternalLink"
 
+import { PALM } from "@global/constants"
+
 /**
  * STYLES
  */
@@ -37,6 +39,13 @@ const BarComponent = styled.div`
   width: 100%;
   position: sticky;
   top: 0;
+  opacity: 0.65;
+  transition: opacity 266ms ease-in-out;
+
+  &.focus-within,
+  &:hover {
+    opacity: 1;
+  }
 
   a,
   button {
@@ -59,6 +68,11 @@ const BarComponent = styled.div`
       background-size: 100% 2px;
       opacity: 1;
     }
+  }
+
+  @media ${PALM} {
+    padding-left: 15px;
+    padding-right: 15px;
   }
 `
 
@@ -105,6 +119,7 @@ const Component = styled.div`
       background: rgba(250,250,250,0.95);
       box-shadow: rgba(50,50,50,0.25) 0px 1px 20px 1px;
       z-index: 1000;
+      opacity: 0.95;
     }
 
     ${WorksListContainer} {
@@ -178,7 +193,7 @@ class Footer extends React.Component {
             <BarContainer ref={this.refFooter}>
               <SignatureLink />
               <Nav role="navigation">
-                <StyledLink to="/about" type="About">About</StyledLink>
+                <StyledLink to="/about" type="About" onClick={() => this.collapseFooter()}>About</StyledLink>
                 {!isExpanded &&
                   <FakeLink onClick={() => this.expandFooter()}>Work</FakeLink>
                 }

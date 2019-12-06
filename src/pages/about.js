@@ -10,6 +10,8 @@ import PageContainer from "@components/PageContainer"
 import InternalLink from "@components/InternalLink"
 import SEO from "../components/seo"
 
+import { PALM } from "@global/constants"
+
 const RandomWorkContainer = styled.div`
 `
 
@@ -19,17 +21,30 @@ const StyledImg = styled(Img)`
 
 const ImagesContainer = styled.div`
   width: 25%;
+
+  @media ${PALM} {
+    width: 100%;
+  }
 `
 
 const TextContainer = styled.div`
   width: 75%;
   padding-left: 25px;
+
+  @media ${PALM} {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 `
 
 const Container = styled.div`
-  padding-top: 50px;
   display: flex;
   min-height: 100vh;
+
+  @media ${PALM} {
+    display: block;
+  }
 `
 
 const options = {

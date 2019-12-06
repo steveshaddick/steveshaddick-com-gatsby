@@ -17,7 +17,7 @@ const Container = styled.div`
 
 const SignatureLink = () => (
   <Container>
-    <img src={signature} alt="Steve Shaddick" />
+    <img style={{height: '30px'}} src={signature} alt="Steve Shaddick" />
   </Container>
 )
 

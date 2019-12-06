@@ -4,6 +4,7 @@ import styled from "styled-components"
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
 import InternalLink from "@components/InternalLink"
+import { PALM } from "@global/constants"
 
 const Title = styled.h1`
   margin-bottom: 0;
@@ -11,6 +12,10 @@ const Title = styled.h1`
 const Info = styled.p`
   margin-top: 0;
   color: rgb(100, 100, 100);
+
+  @media ${PALM} {
+    font-size: 14px;
+  }
 `
 const Description = styled.div`
 `
@@ -27,13 +32,13 @@ const WorkDetails = React.memo(({
 }) => {
   let infoBits = []
   if (type) {
-    infoBits.push((<span>{type}</span>))
+    infoBits.push((<span key={'WorkDetails_type'}>{type}</span>))
   }
   if (type === 'Website') {
-    infoBits.push((<InternalLink>{url}</InternalLink>))
+    infoBits.push((<InternalLink key={'WorkDetails_url'} to={url}>{url}</InternalLink>))
   }
   if (info) {
-    infoBits.push((<span>{info}</span>))
+    infoBits.push((<span key={'WorkDetails_info'}>{info}</span>))
   }
 
   const infoOutput = infoBits.reduce((prev, curr) => [prev, ' ', curr])
@@ -49,13 +54,14 @@ const WorkDetails = React.memo(({
         </Description>
       }
     </Container>
-  )})
+  )}
+)
 
 WorkDetails.propTypes = {
   title: PropTypes.string,
   type: PropTypes.string,
   info: PropTypes.string,
-  description: PropTypes.string
+  description: PropTypes.object
 }
 
 WorkDetails.defaultProps = {

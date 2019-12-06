@@ -12,11 +12,11 @@ const arrowKeyframes = keyframes`
     opacity: 0;
   }
   15% {
-    left: 15%;
+    left: 15px;
     opacity: 1;
   }
   100% {
-    left: 100%;
+    left: 100px;
     opacity: 0;
   }
 `
@@ -28,7 +28,6 @@ const StyledImg = styled(Img)`
 const ArrowWrapper = styled.span`
   position: relative;
   display:inline-block;
-  width: 100px;
 
   img {
     position: absolute;
@@ -83,7 +82,7 @@ const WebsiteImageLink = ({image, title, url}) => (
   <Container href={url} rel="noopener noreferrer" target="_blank" aria-label={`View ${title} website`}>
     <StyledImg fluid={image.fluid} alt={image.title} />
     <ImageOverlay>
-      Visit site <ArrowWrapper>&nbsp;<img className="WebsiteImageLink_arrow1" src={arrowIconSVG} alt="" /> <img className="WebsiteImageLink_arrow2" src={arrowIconSVG} alt="" /></ArrowWrapper> 
+      <span style={{display: 'inline-block'}}>Visit site</span> <ArrowWrapper>&nbsp;<img className="WebsiteImageLink_arrow1" src={arrowIconSVG} alt="" /> <img className="WebsiteImageLink_arrow2" src={arrowIconSVG} alt="" /></ArrowWrapper> 
     </ImageOverlay>
   </Container>
 )

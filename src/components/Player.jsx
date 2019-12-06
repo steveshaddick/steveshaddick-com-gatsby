@@ -21,6 +21,8 @@ const Player = ({ url, loop, controls }) => (
     <ReactPlayer
       className="ReactPlayer"
       url={url}
+      loop={loop}
+      controls={controls}
       playing
       width='100%'
       height='100%'

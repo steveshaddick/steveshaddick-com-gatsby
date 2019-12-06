@@ -12,11 +12,14 @@ import Player from "@components/Player"
 import WebsiteImageLink from "@components/WebsiteImageLink"
 import WorkDetails from "@components/WorkDetails"
 
+import { PALM } from "@global/constants"
 
-const client = createClient({
-  space: process.env.CF_SPACE_ID,
-  accessToken: process.env.CF_ACCESS_TOKEN
-});
+const DetailsContainer = styled.div`
+  @media ${PALM} {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+`
 
 
 const Container = styled.article`
@@ -27,6 +30,13 @@ const Container = styled.article`
     transform: scale(0.25);
   }
 `
+ 
+
+const client = createClient({
+  space: process.env.CF_SPACE_ID,
+  accessToken: process.env.CF_ACCESS_TOKEN
+});
+
 
 class WorkPage extends React.Component {
   state = {
@@ -65,11 +75,13 @@ class WorkPage extends React.Component {
     const {
       title,
       type,
-      info,
       image,
-      description,
-      url
+      url,
+      loop,
+      controls
     } = pageContext
+
+    console.log(pageContext)
 
     const currentSlug = location.pathname.replace('/work/', '')
     return (
@@ -90,7 +102,7 @@ class WorkPage extends React.Component {
 
               <Container>
                 {type === "Video" &&
-                  <Player url={url}></Player>
+                  <Player url={url} loop={loop} controls={controls}></Player>
                 } 
                 {type === "Website" &&
                   <WebsiteImageLink
@@ -99,35 +111,10 @@ class WorkPage extends React.Component {
                     title={title} 
                   />
                 } 
-
-                <WorkDetails {...pageContext} />
                 
-                <InternalLink
-                  to="/about"
-                  pageType="About"
-                  >About</InternalLink>
-                <br />
-                <InternalLink
-                  to="/work/around-about"
-                  pageType="Work"
-                  >Around About</InternalLink>
-                <br />
-                <InternalLink
-                  to="/work/dusk-lighting"
-                  pageType="Work"
-                  >Dusk Lighting</InternalLink>
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
+                <DetailsContainer>
+                  <WorkDetails {...pageContext} />
+                </DetailsContainer>
               </Container>
             </PageContainer>
           )

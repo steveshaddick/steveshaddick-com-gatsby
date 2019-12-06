@@ -16,6 +16,8 @@ exports.sourceNodes = ({ actions }) => {
       slug: String
       type: String
       url: String
+      loop: Boolean
+      controls: Boolean
       image: ContentfulAsset
       thumbnail: ContentfulAsset
     }
@@ -37,6 +39,8 @@ exports.createPages = ({ graphql, actions }) => {
             type
             url
             info
+            loop
+            controls
             description {
               json
             }
@@ -80,6 +84,8 @@ exports.createPages = ({ graphql, actions }) => {
             type: work.type,
             url: work.url,
             info: work.info,
+            loop: work.loop,
+            controls: work.controls,
             description: work.description,
           }
         });
