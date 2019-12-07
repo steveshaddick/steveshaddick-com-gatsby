@@ -76,7 +76,7 @@ exports.createPages = ({ graphql, actions }) => {
           path: `/work/${work.slug}/`,
           component: slash(workTemplate),
           context: {
-            id: work.contentful_id,
+            contentful_id: work.contentful_id,
             title: work.title,
 	          slug: work.slug,
             image: work.image,

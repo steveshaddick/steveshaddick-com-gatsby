@@ -1,18 +1,21 @@
 import React from "react";
-import { Link, graphql } from "gatsby";
+import { graphql } from "gatsby";
 import { createClient } from 'contentful';
 import styled from 'styled-components';
 import { TransitionState } from "gatsby-plugin-transition-link"
-
-import InternalLink from "@components/InternalLink"
 
 import PageContainer from "@components/PageContainer"
 import SEO from "@components/seo"
 import Player from "@components/Player"
 import WebsiteImageLink from "@components/WebsiteImageLink"
 import WorkDetails from "@components/WorkDetails"
+import NextWork from "@components/NextWork"
 
 import { PALM } from "@global/constants"
+
+/**
+ * STYLES
+ */
 
 const DetailsContainer = styled.div`
   @media ${PALM} {
@@ -20,7 +23,6 @@ const DetailsContainer = styled.div`
     padding-right: 15px;
   }
 `
-
 
 const Container = styled.article`
   transition: all 1000ms ease-out;
@@ -30,13 +32,14 @@ const Container = styled.article`
     transform: scale(0.25);
   }
 `
- 
 
+/**
+ * CODE
+ */
 const client = createClient({
   space: process.env.CF_SPACE_ID,
   accessToken: process.env.CF_ACCESS_TOKEN
 });
-
 
 class WorkPage extends React.Component {
   state = {
@@ -45,6 +48,25 @@ class WorkPage extends React.Component {
     video: {
       id: "",
     },
+    randomWork: null
+  }
+
+  constructor(props) {
+    super()
+
+    const {
+      pageContext,
+      data: { contentfulWorkList: { works } } 
+    } = props
+
+    const {
+      contentful_id
+    } = pageContext
+
+    const filteredWorks = works.filter(work => work.contentful_id !== contentful_id)
+
+    const randomIndex = Math.floor(Math.random() * filteredWorks.length)
+    this.randomWork = filteredWorks[randomIndex]
   }
 
   componentDidMount() {
@@ -110,7 +132,7 @@ class WorkPage extends React.Component {
                 } 
                 
                 <DetailsContainer>
-                  <WorkDetails {...pageContext} />
+                  <WorkDetails nextWork={this.randomWork} {...pageContext} />
                 </DetailsContainer>
               </Container>
             </PageContainer>
@@ -121,4 +143,23 @@ class WorkPage extends React.Component {
   }
 }
 
-export default WorkPage;
+export default WorkPage
+
+export const pageQuery = graphql`
+  query {
+    contentfulWorkList(contentful_id: {eq: "1p5V0NNEhIoZedN0PVNirR"}) {
+      works {
+        contentful_id
+        title
+        slug
+        image {
+          title
+          description
+          fluid(maxWidth: 100, quality: 75, toFormat: JPG) {           
+            ...GatsbyContentfulFluid      
+          } 
+        }
+      }
+    }
+  }
+`

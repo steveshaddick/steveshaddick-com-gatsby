@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Link, graphql } from "gatsby";
+import { graphql } from "gatsby";
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import styled from 'styled-components';
 import { BLOCKS } from '@contentful/rich-text-types'
@@ -11,6 +11,10 @@ import InternalLink from "@components/InternalLink"
 import SEO from "../components/seo"
 
 import { MID_TABLET } from "@global/constants"
+
+/**
+ * STYLES
+ */
 
 const RandomWorkContainer = styled.div`
 `
@@ -46,6 +50,10 @@ const Container = styled.div`
     display: block;
   }
 `
+
+/**
+ * CODE
+ */
 
 const options = {
   renderNode: {
@@ -133,4 +141,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`;
+`

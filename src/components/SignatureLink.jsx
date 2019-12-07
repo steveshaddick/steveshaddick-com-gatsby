@@ -17,7 +17,7 @@ const Container = styled.div`
     height: 40px;
 
     @media ${PALM} {
-      height: 30px;
+      height: 35px;
     }
 
   }

@@ -1,3 +1,6 @@
+// Work List
+export const WORK_LIST_ID = '1p5V0NNEhIoZedN0PVNirR'
+
 // Media queries
 export const PALM = '(max-width: 480px)'
 export const BELOW_TABLET = '(max-width: 767px)'

@@ -4,6 +4,7 @@ import styled from "styled-components"
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
 import InternalLink from "@components/InternalLink"
+import NextWork from "@components/NextWork"
 import { PALM } from "@global/constants"
 
 const Title = styled.h1`
@@ -17,6 +18,19 @@ const Info = styled.p`
     font-size: 14px;
   }
 `
+
+const TitleInfoContainer = styled.div`
+  flex: 1 1 auto;
+`
+
+const NextWorkContainer = styled.div`
+  margin-top: 0.67em;
+`
+
+const UnderBarContainer = styled.div`
+  display: flex;
+`
+
 const Description = styled.div`
 `
 
@@ -28,7 +42,8 @@ const WorkDetails = React.memo(({
   type,
   info,
   description,
-  url
+  url,
+  nextWork
 }) => {
   let infoBits = []
   if (type) {
@@ -46,8 +61,16 @@ const WorkDetails = React.memo(({
   
   return (
     <Container>
-      <Title>{title}</Title>
-      <Info>{infoBits.reduce((prev, curr) => [prev, ' ', curr])}</Info>
+      <UnderBarContainer>
+        <TitleInfoContainer>
+          <Title>{title}</Title>
+          <Info>{infoBits.reduce((prev, curr) => [prev, ' ', curr])}</Info>
+        </TitleInfoContainer>
+        <NextWorkContainer>
+          <NextWork work={nextWork} />
+        </NextWorkContainer>
+      </UnderBarContainer>
+
       {description &&
         <Description>
           {documentToReactComponents(description.json)}
@@ -61,7 +84,8 @@ WorkDetails.propTypes = {
   title: PropTypes.string,
   type: PropTypes.string,
   info: PropTypes.string,
-  description: PropTypes.object
+  description: PropTypes.object,
+  nextWork: PropTypes.object
 }
 
 WorkDetails.defaultProps = {

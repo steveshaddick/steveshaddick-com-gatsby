@@ -5,6 +5,8 @@ import { Link, useStaticQuery, graphql } from "gatsby"
 
 import Img from "gatsby-image"
 
+import { MID_TABLET } from "@global/constants"
+
 /**
  * STYLES
  */
@@ -27,10 +29,19 @@ const ListItem = styled.li`
   margin: 10px;
   transition: box-shadow 2000ms ease-out;
   box-shadow: rgba(50,50,50,0) 0px 1px 20px 1px;
-
+  flex: 1 1 auto;
+  
   &:hover {
     opacity: 1;
     box-shadow: rgba(50,50,50,0.25) 0px 1px 20px 1px;
+  }
+
+  @media (hover: none), ${MID_TABLET} {
+    height: auto;
+    box-shadow: none;
+    &:hover {
+      box-shadow: none;
+    }
   }
 `;
 
@@ -46,6 +57,11 @@ const ListImageContainer = styled.div`
   transition: opacity 1000ms ease-out;
   padding: 5px;
   background: white;
+
+  @media (hover: none), ${MID_TABLET} {
+    height: 100px;
+    min-height: 75px;
+  }
 `
 
 const TitleCardTitle = styled.span`
@@ -53,12 +69,20 @@ const TitleCardTitle = styled.span`
   display: block;
   margin-bottom: 5px;
   font-size: 1.8rem;
+
+  @media (hover: none), ${MID_TABLET} {
+    font-size: 1.6rem;
+  }
 `
 
 const TitleCardType = styled.span`
   color: rgb(145,145,145);
   display: block;
   font-size: 1.4rem;
+
+  @media (hover: none), ${MID_TABLET} {
+    font-size: 1.2rem;
+  }
 `
 
 const TitleCard = styled.div`
@@ -72,6 +96,12 @@ const TitleCard = styled.div`
   line-height: 1.1;
   padding: 8px 8px 12px;
   text-align: left;
+
+  @media (hover: none), ${MID_TABLET} {
+    position: static;
+    opacity: 1;
+    width: 100%;
+  }
 `
 
 const StyledLink = styled(Link)`
@@ -89,6 +119,17 @@ const StyledLink = styled(Link)`
 
     ${ListImageContainer} {
       opacity: 1;
+    }
+  }
+
+  @media (hover: none), ${MID_TABLET} {
+    text-decoration: none;
+
+    &:hover {
+      ${TitleCard} {
+        top: auto;
+        box-shadow: none;
+      }
     }
   }
 `
