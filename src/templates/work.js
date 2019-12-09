@@ -36,10 +36,10 @@ const Container = styled.article`
 /**
  * CODE
  */
-const client = createClient({
+/*const client = createClient({
   space: process.env.CF_SPACE_ID,
   accessToken: process.env.CF_ACCESS_TOKEN
-});
+});*/
 
 class WorkPage extends React.Component {
   state = {
@@ -75,7 +75,7 @@ class WorkPage extends React.Component {
 
   fetchVideo() {
     this.setState({ loading: true });
-    client
+    /*client
       .getEntry("eg9Kdh7zZqahCgCBCMC4k")
       .then((response) => {
         this.setState({
@@ -84,7 +84,7 @@ class WorkPage extends React.Component {
           }
         })
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err));*/
   }
 
   render () {
