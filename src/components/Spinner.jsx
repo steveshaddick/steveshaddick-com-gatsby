@@ -15,11 +15,20 @@ const imgKeyFrames = keyframes`
   }
 `
 
+const imgOpacity = keyframes`
+  0% {
+    opacity: 0.33
+  }
+  100% {
+    opacity: 1
+  }
+`
+
 const Img1 = styled.img`
-  animation: ${imgKeyFrames} 1.5s cubic-bezier(0.645, 0.045, 0.355, 1) 0s infinite;
+  animation: ${imgKeyFrames} 1.5s cubic-bezier(0.645, 0.045, 0.355, 1) 0s infinite, ${imgOpacity} 2s cubic-bezier(0.645, 0.045, 0.355, 1) 0s infinite alternate;
 `
 const Img2 = styled.img`
-  animation: ${imgKeyFrames} 2s cubic-bezier(0.645, 0.045, 0.355, 1) 0s infinite;
+  animation: ${imgKeyFrames} 2s cubic-bezier(0.645, 0.045, 0.355, 1) 0s infinite, ${imgOpacity} 3s cubic-bezier(0.645, 0.045, 0.355, 1) 0s infinite alternate;
 `
 
 const SpinnersContainer = styled.div`

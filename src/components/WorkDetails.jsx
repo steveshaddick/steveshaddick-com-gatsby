@@ -5,7 +5,7 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
 import InternalLink from "@components/InternalLink"
 import NextWork from "@components/NextWork"
-import { PALM } from "@global/constants"
+import { PALM, MID_TABLET } from "@global/constants"
 
 const Title = styled.h1`
   margin-bottom: 0;
@@ -24,11 +24,23 @@ const TitleInfoContainer = styled.div`
 `
 
 const NextWorkContainer = styled.div`
-  margin-top: 0.67em;
+  margin: 24px 0;
+  width: 100%;
+  max-width: 500px;
+
+  h2 {
+    font-size: 1.6rem;
+    color: rgba(100,100,100);
+    border-bottom: 1px solid #ccc;
+  }
 `
 
 const UnderBarContainer = styled.div`
   display: flex;
+
+  @media ${MID_TABLET} {
+    display: block;
+  }
 `
 
 const Description = styled.div`
@@ -66,9 +78,6 @@ const WorkDetails = React.memo(({
           <Title>{title}</Title>
           <Info>{infoBits.reduce((prev, curr) => [prev, ' ', curr])}</Info>
         </TitleInfoContainer>
-        <NextWorkContainer>
-          <NextWork work={nextWork} />
-        </NextWorkContainer>
       </UnderBarContainer>
 
       {description &&
@@ -76,6 +85,10 @@ const WorkDetails = React.memo(({
           {documentToReactComponents(description.json)}
         </Description>
       }
+      <NextWorkContainer>
+        <h2>Next Up</h2>
+        <NextWork work={nextWork} />
+      </NextWorkContainer>
     </Container>
   )}
 )

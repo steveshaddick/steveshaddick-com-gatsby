@@ -155,7 +155,7 @@ export const pageQuery = graphql`
         image {
           title
           description
-          fluid(maxWidth: 100, quality: 75, toFormat: JPG) {           
+          fluid(maxWidth: 150, quality: 75, toFormat: JPG) {           
             ...GatsbyContentfulFluid      
           } 
         }
