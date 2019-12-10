@@ -139,7 +139,6 @@ const StyledLink = styled(Link)`
  */
 function renderListItem (work, onClick) {
   const { contentful_id, slug, image, title, type } = work;
-  console.log("IMAGE", image.fluid)
   return (
     <ListItem key={contentful_id}>
       <StyledLink to={`/work/${slug}`} onClick={onClick}>

@@ -67,9 +67,6 @@ const WorkDetails = React.memo(({
   if (info) {
     infoBits.push((<span key={'WorkDetails_info'}>{info}</span>))
   }
-
-  const infoOutput = infoBits.reduce((prev, curr) => [prev, ' ', curr])
-  console.log(infoOutput)
   
   return (
     <Container>

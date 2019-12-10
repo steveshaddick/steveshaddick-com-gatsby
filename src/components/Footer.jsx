@@ -55,6 +55,7 @@ const BarComponent = styled.div`
     color: grey;
     border: none;
     cursor: pointer;
+    line-height: 2.4rem;
     padding: 0;
     text-decoration: none;
     background: transparent;
@@ -96,13 +97,12 @@ const FakeLink = styled.button`
 const Component = styled.div`
   width: 100%;
   position: fixed;
-  top: 100vh;
+  top: auto;
+  bottom: 0;
   transition: top 266ms cubic-bezier(0.86, 0, 0.07, 1), box-shadow 700ms linear;
   background-color: white;
   box-shadow: rgba(100,100,100,0) 1px 1px 10px 1px;
   border-top: 1px solid rgb(220, 220, 200, 0.5);
-
-  /*transition: top 200ms ease-in;*/
 
   &:focus-within,
   &:hover {
@@ -149,22 +149,26 @@ class Footer extends React.Component {
 
     this.loadListTimeout = null
 
+    this.onComponentTransitionEnd = this.onComponentTransitionEnd.bind(this)
+
     this.refFooter = React.createRef();
     this.refComponent = React.createRef();
   }
 
   expandFooter () {
-    this.refComponent.current.style.top = `calc(100vh - ${this.refFooter.current.offsetHeight}px)`;
+    this.refComponent.current.style.top = `calc(100vh - ${this.refFooter.current.offsetHeight}px)`
 
-    this.loadListTimeout = setTimeout(() => {
+    setTimeout(() => {
+      this.loadListTimeout = setTimeout(() => {
+        this.setState({
+          loadList: true
+        })
+      }, 500)
+
       this.setState({
-        loadList: true
-      })
-    }, 500)
-
-    this.setState({
-      isExpanded: true,
-    });
+        isExpanded: true,
+      });
+    }, 10);
   }
 
   collapseFooter () {
@@ -175,10 +179,19 @@ class Footer extends React.Component {
 
   }
 
+  onComponentTransitionEnd (e) {
+    const { isExpanded } = this.state
+    
+    if (e.target === this.refComponent.current) {
+      if (e.propertyName === 'top') {
+        if (!isExpanded) {
+          this.refComponent.current.style.top = ''
+        }
+      }
+    }
+  }
+
   componentDidMount() {
-    setTimeout(() => {
-      this.refComponent.current.style.top = `calc(100vh - ${this.refFooter.current.offsetHeight}px)`;
-    }, 1000);
   }
 
   componentWillUnmount() {
@@ -191,7 +204,11 @@ class Footer extends React.Component {
     const componentClassList = isExpanded ? 'expanded' : '';
 
     return (
-      <Component className={componentClassList} ref={this.refComponent}>
+      <Component
+        className={componentClassList}
+        ref={this.refComponent}
+        onTransitionEnd={this.onComponentTransitionEnd}
+      >
         <Container>
           <BarComponent>
             <BarContainer ref={this.refFooter}>
