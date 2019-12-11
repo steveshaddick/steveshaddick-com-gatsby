@@ -17,19 +17,31 @@ const List = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+
+  @media (max-width: 1000px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  @media (max-width: 550px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  @media (max-width: 400px) {
+    grid-template-columns: 1fr 1fr;
+  }
 `;
 
 const ListItem = styled.li`
   height: 125px;
   width: 125px;
   padding: 0;
-  margin: 10px;
+  margin: 10px auto;
   transition: box-shadow 2000ms ease-out;
   box-shadow: rgba(50,50,50,0) 0px 1px 20px 1px;
-  flex: 1 1 auto;
   
   &:hover {
     opacity: 1;
@@ -185,85 +197,6 @@ const WorksList = ({ onClick }) => {
   return (
     <Container>
       <List>
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
-        {listItems}
         {listItems}
       </List>
     </Container>

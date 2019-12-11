@@ -67,6 +67,10 @@ const WorkDetails = React.memo(({
   if (info) {
     infoBits.push((<span key={'WorkDetails_info'}>{info}</span>))
   }
+
+  if (!infoBits.length) {
+    infoBits.push('')
+  }
   
   return (
     <Container>

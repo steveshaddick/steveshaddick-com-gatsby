@@ -11,11 +11,20 @@ import WebsiteImageLink from "@components/WebsiteImageLink"
 import WorkDetails from "@components/WorkDetails"
 import NextWork from "@components/NextWork"
 
-import { PALM } from "@global/constants"
+import { PALM, MID_TABLET } from "@global/constants"
 
 /**
  * STYLES
  */
+
+const MediaContainer = styled.div`
+  width: 80%;
+
+  @media ${MID_TABLET} {
+    width: 100%;
+  }
+
+`
 
 const DetailsContainer = styled.div`
   @media ${PALM} {
@@ -120,16 +129,18 @@ class WorkPage extends React.Component {
               <SEO title={ currentSlug } />
 
               <Container>
-                {type === "Video" &&
-                  <Player url={url} loop={loop} controls={controls}></Player>
-                } 
-                {type === "Website" &&
-                  <WebsiteImageLink
-                    image={image}
-                    url={url}
-                    title={title} 
-                  />
-                } 
+                <MediaContainer>
+                  {type === "Video" &&
+                    <Player url={url} loop={loop} controls={controls}></Player>
+                  } 
+                  {type === "Website" &&
+                    <WebsiteImageLink
+                      image={image}
+                      url={url}
+                      title={title} 
+                    />
+                  }
+                </MediaContainer>
                 
                 <DetailsContainer>
                   <WorkDetails nextWork={this.randomWork} {...pageContext} />
