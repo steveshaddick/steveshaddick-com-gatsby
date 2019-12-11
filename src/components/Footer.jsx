@@ -3,6 +3,8 @@ import PropTypes from "prop-types"
 import { Link, useStaticQuery, graphql } from "gatsby"
 import styled from 'styled-components'
 
+import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from "body-scroll-lock"
+
 import WorksList from "@components/WorksList";
 import SignatureLink from "@components/SignatureLink"
 import InternalLink from "@components/InternalLink"
@@ -153,6 +155,7 @@ class Footer extends React.Component {
 
     this.refFooter = React.createRef();
     this.refComponent = React.createRef();
+    this.refListContainer = React.createRef()
   }
 
   expandFooter () {
@@ -167,7 +170,9 @@ class Footer extends React.Component {
 
       this.setState({
         isExpanded: true,
-      });
+      })
+
+      disableBodyScroll(this.refListContainer.current)
     }, 10);
   }
 
@@ -186,6 +191,7 @@ class Footer extends React.Component {
       if (e.propertyName === 'top') {
         if (!isExpanded) {
           this.refComponent.current.style.top = ''
+          enableBodyScroll(this.refListContainer.current)
         }
       }
     }
@@ -196,6 +202,7 @@ class Footer extends React.Component {
 
   componentWillUnmount() {
     this.loadListTimeout = null
+    clearAllBodyScrollLocks()
   }
 
   render () {
@@ -225,7 +232,7 @@ class Footer extends React.Component {
             </BarContainer>
           </BarComponent>
 
-          <WorksListContainer>
+          <WorksListContainer ref={this.refListContainer}>
             {(isExpanded && !loadList) &&
               <Spinner />
             }
