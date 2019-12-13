@@ -84,14 +84,21 @@ function renderImages(image, index) {
   return <StyledImg key={index} fluid={image.fluid} alt={image.title} />
 }
 
-const AboutPage = ({ data: { contentfulPage: { title, description, image }, contentfulWorkList: { works } } }) => {
+const AboutPage = ({
+  data: { 
+    contentfulPage: { 
+      title, description, image 
+    }, 
+    contentfulWorkList: { 
+      works 
+    } 
+  } 
+}) => {
 
   const [randomIndex] = useState(Math.floor(Math.random() * works.length))
   const randomWork = works[randomIndex]
 
   const renderedImaged = image.map(renderImages)
-
-  console.log(description)
 
   return (
     <PageContainer className="transitionNode enterFore exitFore">
