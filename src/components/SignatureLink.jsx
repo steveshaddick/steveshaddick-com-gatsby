@@ -11,6 +11,10 @@ const Container = styled.div`
   margin: 0;
   padding: 0;
 
+  a {
+    
+  }
+
   img {
     margin: 0;
     padding-top: 8px;
@@ -25,7 +29,7 @@ const Container = styled.div`
 
 const SignatureLink = () => (
   <Container>
-    <img src={signature} alt="Steve Shaddick" />
+    <a href="/"><img src={signature} alt="Steve Shaddick" /></a>
   </Container>
 )
 

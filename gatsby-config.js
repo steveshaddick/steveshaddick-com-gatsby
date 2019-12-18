@@ -54,7 +54,7 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/me_blurry_70.png`, // This path is relative to the root of the site.
       },
     },
     {
@@ -80,7 +80,20 @@ module.exports = {
         accessToken: process.env.CF_ACCESS_TOKEN
       }
     },
-    `@contentful/gatsby-transformer-contentful-richtext`
+    `@contentful/gatsby-transformer-contentful-richtext`,
+    {
+      resolve: `gatsby-plugin-react-axe`,
+      options: {
+        // Integrate react-axe in production. This defaults to false.
+        showInProduction: false,
+ 
+        // Options to pass to axe-core.
+        // See: https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure
+        axeOptions: {
+          // Your axe-core options.
+        },
+      },
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

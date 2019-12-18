@@ -4,6 +4,7 @@ import { Link, useStaticQuery, graphql } from "gatsby"
 import styled from 'styled-components'
 
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from "body-scroll-lock"
+import FocusLock from 'react-focus-lock'
 
 import WorksList from "@components/WorksList";
 import SignatureLink from "@components/SignatureLink"
@@ -152,6 +153,7 @@ class Footer extends React.Component {
     this.loadListTimeout = null
 
     this.onComponentTransitionEnd = this.onComponentTransitionEnd.bind(this)
+    this.onKeyPressed = this.onKeyPressed.bind(this)
 
     this.refFooter = React.createRef();
     this.refComponent = React.createRef();
@@ -197,6 +199,15 @@ class Footer extends React.Component {
     }
   }
 
+  onKeyPressed(e) {
+    const { isExpanded } = this.state;
+    if (isExpanded) {
+      if (e.keyCode === 27) {
+        this.collapseFooter()
+      }
+    }
+  }
+
   componentDidMount() {
   }
 
@@ -216,7 +227,7 @@ class Footer extends React.Component {
         ref={this.refComponent}
         onTransitionEnd={this.onComponentTransitionEnd}
       >
-        <Container>
+        <Container onKeyDown={this.onKeyPressed}>
           <BarComponent>
             <BarContainer ref={this.refFooter}>
               <SignatureLink />
