@@ -227,32 +227,34 @@ class Footer extends React.Component {
         ref={this.refComponent}
         onTransitionEnd={this.onComponentTransitionEnd}
       >
-        <Container onKeyDown={this.onKeyPressed}>
-          <BarComponent>
-            <BarContainer ref={this.refFooter}>
-              <SignatureLink />
-              <Nav role="navigation">
-                <StyledLink to="/about" type="About" onClick={() => this.collapseFooter()}>About</StyledLink>
-                {!isExpanded &&
-                  <FakeLink onClick={() => this.expandFooter()}>Work</FakeLink>
-                }
-                {isExpanded &&
-                  <FakeLink onClick={() => this.collapseFooter()}>Close</FakeLink>
-                }
-              </Nav>
-            </BarContainer>
-          </BarComponent>
+        <FocusLock disabled={!isExpanded}>
+          <Container onKeyDown={this.onKeyPressed}>
+            <BarComponent>
+              <BarContainer ref={this.refFooter}>
+                <SignatureLink />
+                <Nav role="navigation">
+                  <StyledLink to="/about" type="About" onClick={() => this.collapseFooter()}>About</StyledLink>
+                  {!isExpanded &&
+                    <FakeLink onClick={() => this.expandFooter()}>Work</FakeLink>
+                  }
+                  {isExpanded &&
+                    <FakeLink onClick={() => this.collapseFooter()}>Close</FakeLink>
+                  }
+                </Nav>
+              </BarContainer>
+            </BarComponent>
 
-          <WorksListContainer ref={this.refListContainer}>
-            {(isExpanded && !loadList) &&
-              <Spinner />
-            }
-            {loadList &&
-              <WorksList onClick={() => this.collapseFooter()} />
-            }
-          </WorksListContainer>
+            <WorksListContainer ref={this.refListContainer}>
+              {(isExpanded && !loadList) &&
+                <Spinner />
+              }
+              {loadList &&
+                <WorksList onClick={() => this.collapseFooter()} />
+              }
+            </WorksListContainer>
 
-        </Container>
+          </Container>
+        </FocusLock>
       </Component>
     )
   }
