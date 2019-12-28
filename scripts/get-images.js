@@ -17,6 +17,11 @@ const videos = [
   { id: 201903288, title: 'tate-straight-tall' },
   { id: 201896345, title: 'richmond-scroll' },
   { id: 201891776, title: 'forward' },
+  { id: 380524979, title: 'after-mark-lewis' },
+  { id: 380530156, title: 'scream' },
+  { id: 380527668, title: 'queen-peter' },
+  { id: 380527909, title: 'empty-intersection' },
+  { id: 380527113, title: 'on-stone-and-puddle' },
 ];
 
 for (let i=0,len=videos.length; i<len; i++) {
@@ -34,7 +39,7 @@ for (let i=0,len=videos.length; i<len; i++) {
 
     download.image({
       url: imageUrl,
-      dest: `./images/${filename}`
+      dest: __dirname + `/images/${filename}`
     })
       .then(({ filename, image }) => {
         console.log('Saved to', filename)  // Saved to /path/to/dest/image.jpg

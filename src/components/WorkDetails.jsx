@@ -58,11 +58,9 @@ const WorkDetails = React.memo(({
   nextWork
 }) => {
   let infoBits = []
-  if (type) {
-    infoBits.push((<span key={'WorkDetails_type'}>{type}</span>))
-  }
   if (type === 'Website') {
-    infoBits.push((<InternalLink key={'WorkDetails_url'} to={url}>{url}</InternalLink>))
+    const displayUrl = url.replace('http://', '').replace('https://', '')
+    infoBits.push((<InternalLink key={'WorkDetails_url'} to={url}>{displayUrl}</InternalLink>))
   }
   if (info) {
     infoBits.push((<span key={'WorkDetails_info'}>{info}</span>))

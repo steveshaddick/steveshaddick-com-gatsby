@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useRef, useMemo, useEffect, createRef } from "react"
 import PropTypes from "prop-types"
 import styled from 'styled-components'
 import { Link, useStaticQuery, graphql } from "gatsby"
@@ -122,6 +122,7 @@ const StyledLink = styled(Link)`
   width: 100%;
   height: 100%;
 
+  &.focus-visible,
   &:hover {
     ${TitleCard} {
       opacity: 1;
@@ -149,11 +150,11 @@ const StyledLink = styled(Link)`
 /**
  * CODE
  */
-function renderListItem (work, onClick) {
+function renderListItem (work, onClick, index, refItemLinks) {
   const { contentful_id, slug, image, title, type } = work;
   return (
     <ListItem key={contentful_id}>
-      <StyledLink to={`/work/${slug}`} onClick={onClick}>
+      <StyledLink to={`/work/${slug}`} onClick={onClick} ref={refItemLinks[index]}>
         <ListImageContainer>
           <ListImage fluid={image.fluid} />
         </ListImageContainer>
@@ -192,11 +193,19 @@ const WorksList = ({ onClick }) => {
     }
   `);
   const { contentfulWorkList: { works } } = data;
-  const listItems = works.map((work) => renderListItem(work, onClick));
+  const refItemLinks= useMemo(
+    () => Array.from({ length: works.length }).map(() => createRef()),
+    [works]
+  );
+  const listItems = works.map((work, index) => renderListItem(work, onClick, index, refItemLinks));
+
+  useEffect(() => {
+    refItemLinks[0].current.focus()
+  }, [refItemLinks]);
 
   return (
     <Container>
-      <List>
+      <List aria-label="List of works">
         {listItems}
       </List>
     </Container>
