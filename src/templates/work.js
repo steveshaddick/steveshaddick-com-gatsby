@@ -4,6 +4,8 @@ import { createClient } from 'contentful';
 import styled from 'styled-components';
 import { TransitionState } from "gatsby-plugin-transition-link"
 
+import { updateWorkView } from "@utils/work-utils"
+
 import PageContainer from "@components/PageContainer"
 import SEO from "@components/seo"
 import Player from "@components/Player"
@@ -71,6 +73,8 @@ class WorkPage extends React.Component {
     const {
       contentful_id
     } = pageContext
+
+    updateWorkView(contentful_id)
 
     const filteredWorks = works.filter(work => work.contentful_id !== contentful_id)
 

@@ -32,6 +32,7 @@ const IndexPage = ({
         Like this:
       </h2>
       <NextWork work={randomWork} />
+      <NextWork work={randomWork} />
     </PageContainer>
   );
 }

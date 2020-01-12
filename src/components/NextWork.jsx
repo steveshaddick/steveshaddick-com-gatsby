@@ -24,6 +24,10 @@ const Text = styled.span`
   padding: 0 15px;
   transform: translate3d(-10px, 0, 0);
   transition: opacity 266ms ease-in-out, transform 266ms ease-in-out;
+  position: absolute;
+  left: 75px;
+  width: 200px;
+  background: #fff;
 
   @media (hover: none), ${MID_TABLET} {
     opacity: 1;
@@ -55,6 +59,7 @@ const StyledLink = styled(InternalLink)`
 
 const Component = styled.div`
   position: relative;
+  display: inline-block;
 `
 
 const NextWork = ({ work }) => {

@@ -7,9 +7,11 @@ module.exports = {
     title: `Steve Shaddick`,
     description: `Sometimes I make things, and sometimes I post them here.`,
     author: `Steve Shaddick`,
+    siteUrl: `https://www.steveshaddick.com`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-sitemap`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -27,6 +29,7 @@ module.exports = {
           "@layouts": "src/layouts",
           "@images": "src/images",
           "@pages": "src/pages",
+          "@utils": "src/utils",
           "@sass": "src/sass",
           "@templates": "src/templates",
           "@posts": "content/posts",
