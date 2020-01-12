@@ -22,6 +22,14 @@ const videos = [
   { id: 380527668, title: 'queen-peter' },
   { id: 380527909, title: 'empty-intersection' },
   { id: 380527113, title: 'on-stone-and-puddle' },
+  { id: 380639280, title: 'i-knew-it' },
+  { id: 380638879, title: 'and-now' },
+  { id: 380639106, title: 'downsview-finch' },
+  { id: 380639805, title: 'two-walking' },
+  { id: 380640203, title: 'i-did-it' },
+  { id: 381684696, title: 'lakeside' },
+  { id: 381685086, title: 'uh-yeah' },
+  { id: 380639848, title: 'show-medium' },
 ];
 
 for (let i=0,len=videos.length; i<len; i++) {
