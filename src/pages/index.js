@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, graphql } from "gatsby";
 import { navigate } from "@reach/router";
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
+import { getRandomWork } from "@utils/work-utils"
+
 import SEO from "../components/seo";
 import NextWork from "@components/NextWork";
 import PageContainer from "@components/PageContainer";
+
+import storage from 'local-storage-fallback'
 
 const IndexPage = ({
   data: {
@@ -18,8 +22,27 @@ const IndexPage = ({
   } 
 }) => {
 
-  const [randomIndex] = useState(Math.floor(Math.random() * works.length))
-  const randomWork = works[randomIndex]
+  useEffect(() => {
+    console.log("running workviews update")
+    let workViews = {}
+    for (let i=0, len=works.length; i<len; i++) {
+      const work = works[i];
+      let numViews = 0;
+      if (Math.random() > 0.33) {
+        numViews = Math.floor(Math.random() * 20)
+      }
+      workViews[work.contentful_id] = {
+        id: work.contentful_id,
+        views: numViews,
+        lastUpdated: new Date()
+      }
+    }
+
+    storage.setItem('workViews', JSON.stringify(workViews))
+
+  }, [works]);
+
+  const [ randomWorks ] = useState(() => getRandomWork(works, {num: 3}))
 
   return (
     <PageContainer className={`transitionNode`}>
@@ -29,10 +52,10 @@ const IndexPage = ({
       {documentToReactComponents(description.json)}
       
       <h2>
-        Like this:
+        Like these:
       </h2>
-      <NextWork work={randomWork} />
-      <NextWork work={randomWork} />
+      <NextWork work={randomWorks[0]} />
+      <NextWork work={randomWorks[1]} />
     </PageContainer>
   );
 }
