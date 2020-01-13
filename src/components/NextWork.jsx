@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
 
@@ -28,6 +28,7 @@ const Text = styled.span`
   left: 75px;
   width: 200px;
   background: #fff;
+  pointer-events: none;
 
   @media (hover: none), ${MID_TABLET} {
     opacity: 1;
@@ -38,7 +39,6 @@ const Text = styled.span`
 const StyledLink = styled(InternalLink)`
   display: flex;
   align-items: center;
-  opacity: 0.8;
   transition: opacity 266ms ease-in-out;
 
   &:hover,
@@ -62,15 +62,27 @@ const Component = styled.div`
   display: inline-block;
 `
 
-const NextWork = ({ work }) => {
+const NextWork = ({ className, work, handleOnOver, handleOnOut }) => {
   const {
     title,
     image,
     slug
   } = work
 
+  const [ isActive, setActive ] = useState(false)
+  const classes = isActive ? `${className} active` : className
+
   return (
-    <Component>
+    <Component
+      className={classes}
+      onMouseOver={() => {
+        setActive(true)
+        if (handleOnOver) handleOnOver()
+      }}
+      onMouseOut={() => {
+        setActive(false)
+        if (handleOnOut) handleOnOut()
+      }}>
       <StyledLink to={`/work/${slug}`} type="Work">
         <NextWorkImage fluid={image.fluid} />
         <Text>{ title }</Text>
@@ -80,7 +92,9 @@ const NextWork = ({ work }) => {
 }
 
 NextWork.propTypes = {
-  work: PropTypes.object
+  work: PropTypes.object,
+  handleOnOver: PropTypes.func,
+  handleOnOut: PropTypes.func
 }
 
 NextWork.defaultProps = {

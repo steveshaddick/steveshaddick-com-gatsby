@@ -6,7 +6,7 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { getRandomWork } from "@utils/work-utils"
 
 import SEO from "../components/seo";
-import NextWork from "@components/NextWork";
+import NextWorkList from "@components/NextWorkList";
 import PageContainer from "@components/PageContainer";
 
 import storage from 'local-storage-fallback'
@@ -54,8 +54,8 @@ const IndexPage = ({
       <h2>
         Like these:
       </h2>
-      <NextWork work={randomWorks[0]} />
-      <NextWork work={randomWorks[1]} />
+      <NextWorkList works={randomWorks} />
+
     </PageContainer>
   );
 }
