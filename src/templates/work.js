@@ -3,6 +3,7 @@ import { graphql } from "gatsby";
 import { createClient } from 'contentful';
 import styled from 'styled-components';
 import { TransitionState } from "gatsby-plugin-transition-link"
+import Img from "gatsby-image"
 
 import { updateWorkView } from "@utils/work-utils"
 
@@ -138,11 +139,7 @@ class WorkPage extends React.Component {
                     <Player url={url} loop={loop} controls={controls}></Player>
                   } 
                   {type === "Website" &&
-                    <WebsiteImageLink
-                      image={image}
-                      url={url}
-                      title={title} 
-                    />
+                    <Img fluid={image.fluid} alt={image.title} />
                   }
                 </MediaContainer>
                 

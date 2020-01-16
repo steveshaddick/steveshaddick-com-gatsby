@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useEffect, createRef } from "react"
+import React, { useRef, useMemo, useEffect, createRef, useState } from "react"
 import PropTypes from "prop-types"
 import styled from 'styled-components'
 import { Link, useStaticQuery, graphql } from "gatsby"
@@ -10,8 +10,6 @@ import { MID_TABLET } from "@global/constants"
 /**
  * STYLES
  */
-const Container = styled.div`
-`;
 
 const List = styled.ul`
   list-style: none;
@@ -62,7 +60,7 @@ const ListImage = styled(Img)`
   width: 100%;
 `;
 
-const ListImageContainer = styled.div`
+const ListImageComponent = styled.div`
   height: 100%;
   width: 100%;
   opacity: 0.9;
@@ -104,7 +102,7 @@ const TitleCard = styled.div`
   top: 0;
   opacity: 0;
   transition: opacity 266ms ease-out, top 266ms cubic-bezier(0.86, 0, 0.07, 1);
-  z-index: 10;
+  z-index: 100;
   line-height: 1.1;
   padding: 8px 8px 12px;
   text-align: left;
@@ -121,6 +119,7 @@ const StyledLink = styled(Link)`
   display: block;
   width: 100%;
   height: 100%;
+  transition: opacity 266ms ease-out;
 
   &.focus-visible,
   &:hover {
@@ -130,7 +129,7 @@ const StyledLink = styled(Link)`
       box-shadow: rgba(50,50,50,0.25) 0px 1px 10px 1px;
     }
 
-    ${ListImageContainer} {
+    ${ListImageComponent} {
       opacity: 1;
     }
   }
@@ -147,17 +146,52 @@ const StyledLink = styled(Link)`
   }
 `
 
+const Component = styled.div`
+  &.hasOver {
+    ${StyledLink} {
+      opacity: 0.75;
+      
+      &.active {
+        opacity: 1;
+      }
+    }
+  }
+`;
+
 /**
  * CODE
  */
+
+const componentRef = createRef()
+
+function handleItemOver(e) {
+  e.currentTarget.classList.add('active')
+  componentRef.current.classList.add('hasOver')
+}
+function handleItemOut(e) {
+  e.currentTarget.classList.remove('active')
+  componentRef.current.classList.remove('hasOver')
+}
+
+
 function renderListItem (work, onClick, index, refItemLinks) {
   const { contentful_id, slug, image, title, type } = work;
   return (
     <ListItem key={contentful_id}>
-      <StyledLink to={`/work/${slug}`} onClick={onClick} ref={refItemLinks[index]}>
-        <ListImageContainer>
+      <StyledLink
+        to={`/work/${slug}`}
+        onClick={onClick}
+        onMouseEnter={handleItemOver}
+        onMouseLeave={handleItemOut}
+        ref={refItemLinks[index]}
+        style={{
+          transitionDuration: `${parseInt(Math.random() * 100) + 200}ms`,
+          transitionDelay: `${parseInt(Math.random() * 150)}ms`
+        }}
+      >
+        <ListImageComponent>
           <ListImage fluid={image.fluid} />
-        </ListImageContainer>
+        </ListImageComponent>
         <TitleCard>
           <TitleCardTitle>{title}</TitleCardTitle>
           <TitleCardType>{type}</TitleCardType>
@@ -204,11 +238,11 @@ const WorksList = ({ onClick }) => {
   }, [refItemLinks]);
 
   return (
-    <Container>
+    <Component ref={componentRef}>
       <List aria-label="List of works">
         {listItems}
       </List>
-    </Container>
+    </Component>
   )
 }
 
