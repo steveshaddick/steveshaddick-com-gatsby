@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { TransitionState } from "gatsby-plugin-transition-link"
 import Img from "gatsby-image"
 
-import { updateWorkView } from "@utils/work-utils"
+import { updateWorkView, getRandomWork } from "@utils/work-utils"
 
 import PageContainer from "@components/PageContainer"
 import SEO from "@components/seo"
@@ -77,10 +77,10 @@ class WorkPage extends React.Component {
 
     updateWorkView(contentful_id)
 
-    const filteredWorks = works.filter(work => work.contentful_id !== contentful_id)
-
-    const randomIndex = Math.floor(Math.random() * filteredWorks.length)
-    this.randomWork = filteredWorks[randomIndex]
+    this.randomWorks = getRandomWork(works, {
+      num: 3,
+      excludeContentfulIds: [contentful_id]
+    })
   }
 
   componentDidMount() {
@@ -117,6 +117,7 @@ class WorkPage extends React.Component {
     } = pageContext
 
     const currentSlug = location.pathname.replace('/work/', '')
+
     return (
       <TransitionState>
         {({ entry, exit }) => {
@@ -144,7 +145,7 @@ class WorkPage extends React.Component {
                 </MediaContainer>
                 
                 <DetailsContainer>
-                  <WorkDetails nextWork={this.randomWork} {...pageContext} />
+                  <WorkDetails nextWorks={this.randomWorks} {...pageContext} />
                 </DetailsContainer>
               </Container>
             </PageContainer>
@@ -164,6 +165,7 @@ export const pageQuery = graphql`
         contentful_id
         title
         slug
+        type
         image {
           title
           description

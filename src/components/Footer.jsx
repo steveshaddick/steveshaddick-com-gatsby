@@ -249,7 +249,7 @@ class Footer extends React.Component {
                 <Spinner />
               }
               {loadList &&
-                <WorksList onClick={() => this.collapseFooter()} />
+                <WorksList onClick={() => this.collapseFooter()} needFocus={true} />
               }
             </WorksListContainer>
 

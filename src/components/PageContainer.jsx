@@ -9,7 +9,7 @@ const Container = styled.div`
   max-width: 1200px;
   padding-bottom: 100px;
   background: #fafafa;
-  padding-top: 40px;
+  padding-top: 20px;
   padding-left: 20px;
   padding-right: 20px;
 

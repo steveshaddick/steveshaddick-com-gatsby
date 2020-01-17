@@ -15,22 +15,6 @@ const List = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: auto;
-
-  @media (max-width: 1000px) {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  }
-  @media (max-width: 767px) {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
-  @media (max-width: 550px) {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-  @media (max-width: 400px) {
-    grid-template-columns: 1fr 1fr;
-  }
 `;
 
 const ListItem = styled.li`
@@ -156,25 +140,61 @@ const Component = styled.div`
       }
     }
   }
+
+  &.grid {
+    ${List} {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+      grid-template-rows: auto;
+
+      @media (max-width: 1000px) {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      }
+      @media (max-width: 767px) {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+      }
+      @media (max-width: 550px) {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+      @media (max-width: 400px) {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  }
+
+  &.list {
+    ${List} {
+      margin-left: -5px;
+    }
+    ${ListItem} {
+      height: 90px;
+      width: 90px;
+      display: inline-block;
+      margin: 0 5px;
+    }
+
+    ${TitleCardTitle} {
+      font-size: 1.6rem;
+
+      @media (hover: none), ${MID_TABLET} {
+        font-size: 1.4rem;
+      }
+    }
+
+    ${TitleCardType} {
+      font-size: 1.2rem;
+
+      @media (hover: none), ${MID_TABLET} {
+        font-size: 1.0rem;
+      }
+    }
+  }
 `;
 
 /**
  * CODE
  */
-
-const componentRef = createRef()
-
-function handleItemOver(e) {
-  e.currentTarget.classList.add('active')
-  componentRef.current.classList.add('hasOver')
-}
-function handleItemOut(e) {
-  e.currentTarget.classList.remove('active')
-  componentRef.current.classList.remove('hasOver')
-}
-
-
-function renderListItem (work, onClick, index, refItemLinks) {
+function renderListItem (work, onClick, index, refItemLinks, handleItemOver, handleItemOut) {
   const { contentful_id, slug, image, title, type } = work;
   return (
     <ListItem key={contentful_id}>
@@ -201,7 +221,7 @@ function renderListItem (work, onClick, index, refItemLinks) {
   )
 }
 
-const WorksList = ({ onClick }) => {
+const WorksList = ({ onClick, worksData, needFocus, styleType }) => {
   const data = useStaticQuery(graphql`
     query {
       contentfulWorkList(contentful_id: {eq: "1p5V0NNEhIoZedN0PVNirR"}) {
@@ -227,23 +247,56 @@ const WorksList = ({ onClick }) => {
     }
   `);
   const { contentfulWorkList: { works } } = data;
+  
+  if (!worksData) {
+    worksData = works;
+  }
+
+  
+  const componentRef = createRef()
+
+  function handleItemOver(e) {
+    e.currentTarget.classList.add('active')
+    componentRef.current.classList.add('hasOver')
+  }
+  function handleItemOut(e) {
+    e.currentTarget.classList.remove('active')
+    componentRef.current.classList.remove('hasOver')
+  }
+
   const refItemLinks= useMemo(
-    () => Array.from({ length: works.length }).map(() => createRef()),
-    [works]
+    () => Array.from({ length: worksData.length }).map(() => createRef()),
+    [worksData]
   );
-  const listItems = works.map((work, index) => renderListItem(work, onClick, index, refItemLinks));
+  const listItems = worksData.map((work, index) => renderListItem(work, onClick, index, refItemLinks, handleItemOver, handleItemOut));
 
   useEffect(() => {
-    refItemLinks[0].current.focus()
-  }, [refItemLinks]);
+    if (needFocus) {
+      if (refItemLinks.length) {
+        refItemLinks[0].current.focus()
+      }
+    }
+  }, [needFocus, refItemLinks]);
 
   return (
-    <Component ref={componentRef}>
+    <Component ref={componentRef} className={styleType}>
       <List aria-label="List of works">
         {listItems}
       </List>
     </Component>
   )
+}
+
+WorksList.propTypes = {
+  onClick: PropTypes.func,
+  worksData: PropTypes.array,
+  needFocus: PropTypes.bool,
+  styleType: PropTypes.string
+}
+
+WorksList.defaultProps = {
+  needFocus: false,
+  styleType: 'grid'
 }
 
 export default WorksList;

@@ -4,7 +4,7 @@ import styled from "styled-components"
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
 import InternalLink from "@components/InternalLink"
-import NextWork from "@components/NextWork"
+import WorksList from "@components/WorksList"
 import { PALM, MID_TABLET } from "@global/constants"
 
 const Title = styled.h1`
@@ -55,11 +55,12 @@ const WorkDetails = React.memo(({
   info,
   description,
   url,
-  nextWork
+  nextWorks
 }) => {
   let infoBits = []
   if (type === 'Website') {
     const displayUrl = url.replace('http://', '').replace('https://', '')
+    console.log(url);
     infoBits.push((<InternalLink key={'WorkDetails_url'} to={url}>{displayUrl}</InternalLink>))
   }
   if (info) {
@@ -86,7 +87,7 @@ const WorkDetails = React.memo(({
       }
       <NextWorkContainer>
         <h2>Next Up</h2>
-        <NextWork work={nextWork} />
+        <WorksList worksData={nextWorks} styleType="list" />
       </NextWorkContainer>
     </Container>
   )}

@@ -7,6 +7,7 @@ import { getRandomWork } from "@utils/work-utils"
 
 import SEO from "../components/seo";
 import NextWorkList from "@components/NextWorkList";
+import WorksList from "@components/WorksList";
 import PageContainer from "@components/PageContainer";
 
 import storage from 'local-storage-fallback'
@@ -23,7 +24,6 @@ const IndexPage = ({
 }) => {
 
   useEffect(() => {
-    console.log("running workviews update")
     let workViews = {}
     for (let i=0, len=works.length; i<len; i++) {
       const work = works[i];
@@ -54,7 +54,10 @@ const IndexPage = ({
       <h2>
         Like these:
       </h2>
-      <NextWorkList works={randomWorks} />
+      {
+        //<NextWorkList works={randomWorks} />
+      }
+      <WorksList worksData={randomWorks} styleType="list" />
 
     </PageContainer>
   );
@@ -84,6 +87,7 @@ export const pageQuery = graphql`
       works {
         contentful_id
         title
+        type
         slug
         image {
           title
