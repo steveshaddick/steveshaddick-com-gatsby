@@ -13,17 +13,21 @@ const Container = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    background: rgb(240,240,240);
+
+    &.not-ready {
+      background: rgb(225,225,225);
+    }
   }
 `
 
 const Player = ({ url, loop, controls }) => {
   const [isReady, setReady] = useState(false);
+  const readyClass = !isReady ? 'not-ready' : ''
   
   return (
     <Container>
       <ReactPlayer
-        className="ReactPlayer"
+        className={`ReactPlayer ${readyClass}`}
         url={url}
         loop={loop}
         controls={controls}

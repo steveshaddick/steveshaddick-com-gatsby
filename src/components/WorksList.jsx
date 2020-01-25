@@ -24,6 +24,7 @@ const ListItem = styled.li`
   margin: 10px auto;
   transition: box-shadow 2000ms ease-out;
   box-shadow: rgba(50,50,50,0) 0px 1px 20px 1px;
+  vertical-align: top;
   
   &:hover {
     opacity: 1;
@@ -90,6 +91,7 @@ const TitleCard = styled.div`
   line-height: 1.1;
   padding: 8px 8px 12px;
   text-align: left;
+  pointer-events: none;
 
   @media (hover: none), ${MID_TABLET} {
     position: static;
@@ -134,6 +136,13 @@ const StyledLink = styled(Link)`
 `
 
 const Component = styled.div`
+  &.notOver {
+    ${StyledLink} {
+      transition-duration: 266ms !important;
+      transition-delay: 0 !important;
+    }
+  }
+
   &.hasOver {
     ${StyledLink} {
       filter: grayscale(100%);
@@ -200,14 +209,8 @@ const Component = styled.div`
  * CODE
  */
 
-const itemStylesCache = []
-let currentZIndex = 1000
-
-function renderListItem (work, onClick, index, refItemLinks, handleItemOver, handleItemOut) {
+function renderListItem (work, onClick, index, refItemLinks, handleItemOver, handleItemOut, currentZIndex) {
   const { contentful_id, slug, image, title, type } = work;
-  if (!itemStylesCache[index]) {
-    itemStylesCache[index] = `transition-duration: ${parseInt(Math.random() * 3000) + 1000}ms; transition-delay: ${parseInt(Math.random() * 150)}ms;`
-  }
   return (
     <ListItem key={contentful_id} style={{ zIndex: currentZIndex-- }}>
       <StyledLink
@@ -216,6 +219,10 @@ function renderListItem (work, onClick, index, refItemLinks, handleItemOver, han
         onMouseEnter={handleItemOver}
         onMouseLeave={handleItemOut}
         ref={refItemLinks[index]}
+        style={{
+          transitionDuration: `${parseInt(Math.random() * 2000) + 200}ms`,
+          transitionDelay: `${parseInt(Math.random() * 150)}ms`
+        }}
       >
         <ListImageComponent>
           <ListImage fluid={image.fluid} />
@@ -255,6 +262,7 @@ const WorksList = ({ onClick, worksData, needFocus, styleType }) => {
     }
   `);
   const { contentfulWorkList: { works } } = data;
+  let currentZIndex = 1000
   
   if (!worksData) {
     worksData = works;
@@ -265,28 +273,20 @@ const WorksList = ({ onClick, worksData, needFocus, styleType }) => {
 
   function handleItemOver(e) {
     e.currentTarget.classList.add('active')
+    componentRef.current.classList.remove('notOver')
     componentRef.current.classList.add('hasOver')
-    for (let i=0, len=refItemLinks.length; i<len; i++) {
-      if (refItemLinks[i].current) {
-        refItemLinks[i].current.setAttribute('style', itemStylesCache[i])
-      }
-    }
   }
   function handleItemOut(e) {
     e.currentTarget.classList.remove('active')
     componentRef.current.classList.remove('hasOver')
-    for (let i=0, len=refItemLinks.length; i<len; i++) {
-      if (refItemLinks[i].current) {
-        refItemLinks[i].current.setAttribute('style', '')
-      }
-    }
+    componentRef.current.classList.add('notOver')
   }
 
   const refItemLinks= useMemo(
     () => Array.from({ length: worksData.length }).map(() => createRef()),
     [worksData]
   );
-  const listItems = worksData.map((work, index) => renderListItem(work, onClick, index, refItemLinks, handleItemOver, handleItemOut));
+  const listItems = worksData.map((work, index) => renderListItem(work, onClick, index, refItemLinks, handleItemOver, handleItemOut, currentZIndex));
 
   useEffect(() => {
     if (needFocus) {

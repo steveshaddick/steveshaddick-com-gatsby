@@ -19,6 +19,7 @@ exports.sourceNodes = ({ actions }) => {
       loop: Boolean
       controls: Boolean
       image: ContentfulAsset
+      metaDescription: String
       thumbnail: ContentfulAsset
     }
   `
@@ -41,6 +42,7 @@ exports.createPages = ({ graphql, actions }) => {
             info
             loop
             controls
+            metaDescription
             description {
               json
             }
@@ -87,6 +89,7 @@ exports.createPages = ({ graphql, actions }) => {
             loop: work.loop,
             controls: work.controls,
             description: work.description,
+            metaDescription: work.metaDescription,
           }
         });
       });

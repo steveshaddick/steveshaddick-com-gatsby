@@ -24,7 +24,7 @@ const TitleInfoContainer = styled.div`
 `
 
 const NextWorkContainer = styled.div`
-  margin: 24px 0;
+  margin: 72px 0;
   width: 100%;
   max-width: 500px;
 

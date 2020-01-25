@@ -125,7 +125,7 @@ const Component = styled.div`
     ${BarComponent} {
       background: rgba(250,250,250,0.95);
       box-shadow: rgba(50,50,50,0.25) 0px 1px 20px 1px;
-      z-index: 1000;
+      z-index: 10000;
       opacity: 0.95;
     }
 

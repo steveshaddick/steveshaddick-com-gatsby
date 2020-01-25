@@ -103,7 +103,6 @@ class WorkPage extends React.Component {
 
   render () {
     const {
-      location,
       pageContext
     } = this.props
 
@@ -113,10 +112,11 @@ class WorkPage extends React.Component {
       image,
       url,
       loop,
+      metaDescription,
       controls
     } = pageContext
 
-    const currentSlug = location.pathname.replace('/work/', '')
+    const seoDescription = metaDescription ? metaDescription : `A ${type.toLowerCase()} work.`
 
     return (
       <TransitionState>
@@ -132,7 +132,7 @@ class WorkPage extends React.Component {
 
           return (
             <PageContainer className={`transitionNode ${transitionClassName}`}>
-              <SEO title={ currentSlug } />
+              <SEO title={ title } description={ seoDescription } />
 
               <Container>
                 <MediaContainer>
@@ -166,6 +166,7 @@ export const pageQuery = graphql`
         title
         slug
         type
+        metaDescription
         image {
           title
           description
