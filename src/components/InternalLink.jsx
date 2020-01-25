@@ -41,6 +41,7 @@ const InternalLink = ({ className, to, children, onClick }) => {
   )}
 
 InternalLink.propTypes = {
+  className: PropTypes.string,
   to: PropTypes.string,
   children: PropTypes.node,
   onClick: PropTypes.func

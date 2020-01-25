@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types"
 import { graphql } from "gatsby";
 import { createClient } from 'contentful';
 import styled from 'styled-components';
@@ -113,7 +114,7 @@ class WorkPage extends React.Component {
       url,
       loop,
       metaDescription,
-      controls
+      controls,
     } = pageContext
 
     const seoDescription = metaDescription ? metaDescription : `A ${type.toLowerCase()} work.`
@@ -154,6 +155,11 @@ class WorkPage extends React.Component {
       </TransitionState>
     );
   }
+}
+
+WorkPage.propTypes = {
+  pageContext: PropTypes.object,
+  data: PropTypes.object
 }
 
 export default WorkPage

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types"
 import { Link, graphql } from "gatsby";
 import { navigate } from "@reach/router";
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
@@ -61,6 +62,10 @@ const IndexPage = ({
 
     </PageContainer>
   );
+}
+
+IndexPage.propTypes = {
+  data: PropTypes.object
 }
 
 export default IndexPage;

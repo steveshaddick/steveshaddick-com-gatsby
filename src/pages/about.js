@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import PropTypes from "prop-types"
 import { graphql } from "gatsby";
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import styled from 'styled-components';
@@ -118,6 +119,10 @@ const AboutPage = ({
       </Container>
     </PageContainer>
   )
+}
+
+AboutPage.propTypes = {
+  data: PropTypes.object
 }
 
 export default AboutPage;

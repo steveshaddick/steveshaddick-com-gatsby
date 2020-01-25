@@ -8,7 +8,7 @@ const path = require(`path`);
 const slash = require(`slash`);
 
 exports.sourceNodes = ({ actions }) => {
-  const { createTypes } = actions
+  const { createTypes } = actions;
   const typeDefs = `
     type ContentfulWork implements Node {
       contentful_id: String
@@ -22,17 +22,16 @@ exports.sourceNodes = ({ actions }) => {
       metaDescription: String
       thumbnail: ContentfulAsset
     }
-  `
-  createTypes(typeDefs)
+  `;
+  createTypes(typeDefs);
 };
-
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions;
   return graphql(
     `
       query {
-        contentfulWorkList(contentful_id: {eq: "1p5V0NNEhIoZedN0PVNirR"}) {
+        contentfulWorkList(contentful_id: { eq: "1p5V0NNEhIoZedN0PVNirR" }) {
           works {
             contentful_id
             title
@@ -48,13 +47,13 @@ exports.createPages = ({ graphql, actions }) => {
             }
             image {
               title
-              fluid(maxWidth: 1000, quality: 85) {           
+              fluid(maxWidth: 1000, quality: 85) {
                 base64
                 aspectRatio
                 src
                 srcSet
-                sizes     
-              } 
+                sizes
+              }
             }
             thumbnail {
               title
@@ -66,9 +65,10 @@ exports.createPages = ({ graphql, actions }) => {
         }
       }
     `
-  ).then(result => {
+  )
+    .then(result => {
       if (result.errors) {
-        console.log("Error retrieving contentful data",      result.errors);
+        console.log("Error retrieving contentful data", result.errors);
       }
       // Resolve the paths to our template
       const workTemplate = path.resolve("./src/templates/work.js");
@@ -80,7 +80,7 @@ exports.createPages = ({ graphql, actions }) => {
           context: {
             contentful_id: work.contentful_id,
             title: work.title,
-	          slug: work.slug,
+            slug: work.slug,
             image: work.image,
             thumbnail: work.thumbnail,
             type: work.type,
@@ -89,7 +89,7 @@ exports.createPages = ({ graphql, actions }) => {
             loop: work.loop,
             controls: work.controls,
             description: work.description,
-            metaDescription: work.metaDescription,
+            metaDescription: work.metaDescription
           }
         });
       });

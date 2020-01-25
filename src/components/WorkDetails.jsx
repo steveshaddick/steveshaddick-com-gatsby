@@ -49,7 +49,7 @@ const Description = styled.div`
 const Container = styled.div`
 `
 
-const WorkDetails = React.memo(({
+const WorkDetails = ({
   title,
   type,
   info,
@@ -89,18 +89,20 @@ const WorkDetails = React.memo(({
         <WorksList worksData={nextWorks} styleType="list" />
       </NextWorkContainer>
     </Container>
-  )}
-)
+  )
+}
 
 WorkDetails.propTypes = {
   title: PropTypes.string,
   type: PropTypes.string,
   info: PropTypes.string,
   description: PropTypes.object,
-  nextWork: PropTypes.object
+  nextWork: PropTypes.object,
+  url: PropTypes.string,
+  nextWorks: PropTypes.array
 }
 
 WorkDetails.defaultProps = {
 }
 
-export default WorkDetails
+export default React.memo(WorkDetails)

@@ -1,5 +1,5 @@
-require('dotenv').config({
-  path: `.env.${process.env.NODE_ENV}`,
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`
 });
 
 module.exports = {
@@ -7,17 +7,29 @@ module.exports = {
     title: `Steve Shaddick`,
     description: `Sometimes I make things, and sometimes I post them here.`,
     author: `Steve Shaddick`,
-    siteUrl: `https://www.steveshaddick.com`,
+    siteUrl: `https://www.steveshaddick.com`
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-eslint`,
+      options: {
+        test: /\.js$|\.jsx$/,
+        exclude: /(node_modules|.cache|public)/,
+        stages: ["develop"],
+        options: {
+          emitWarning: true,
+          failOnError: false
+        }
+      }
+    },
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sitemap`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/src/images`,
-      },
+        path: `${__dirname}/src/images`
+      }
     },
     {
       resolve: `gatsby-plugin-alias-imports`,
@@ -32,11 +44,9 @@ module.exports = {
           "@utils": "src/utils",
           "@sass": "src/sass",
           "@templates": "src/templates",
-          "@posts": "content/posts",
+          "@posts": "content/posts"
         },
-        extensions: [
-          "js",
-        ],
+        extensions: ["js"]
       }
     },
     `gatsby-transformer-sharp`,
@@ -57,24 +67,21 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/me_blurry_70.png`, // This path is relative to the root of the site.
-      },
+        icon: `src/images/me_blurry_70.png` // This path is relative to the root of the site.
+      }
     },
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
-        fonts: [
-          `rubik:400, 700`,
-          `martel:400, 700`
-        ],
-        display: 'swap'
+        fonts: [`rubik:400, 700`, `martel:400, 700`],
+        display: "swap"
       }
     },
     {
       resolve: `gatsby-plugin-styled-components`,
       options: {
         // Add any options here
-      },
+      }
     },
     {
       resolve: `gatsby-source-contentful`,
@@ -89,16 +96,16 @@ module.exports = {
       options: {
         // Integrate react-axe in production. This defaults to false.
         showInProduction: false,
- 
+
         // Options to pass to axe-core.
         // See: https://github.com/dequelabs/axe-core/blob/master/doc/API.md#api-name-axeconfigure
         axeOptions: {
           // Your axe-core options.
-        },
-      },
-    },
+        }
+      }
+    }
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
-  ],
-}
+  ]
+};

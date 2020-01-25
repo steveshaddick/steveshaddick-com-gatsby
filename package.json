@@ -13,7 +13,7 @@
     "body-scroll-lock": "^2.6.4",
     "contentful": "^7.10.0",
     "focus-visible": "^5.0.2",
-    "gatsby": "2.18.19",
+    "gatsby": "2.19.5",
     "gatsby-image": "^2.2.34",
     "gatsby-plugin-alias-imports": "^1.0.5",
     "gatsby-plugin-create-client-paths": "^2.1.18",
@@ -42,6 +42,13 @@
   },
   "devDependencies": {
     "@babel/core": "^7.7.5",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-loader": "^3.0.3",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.18.0",
+    "gatsby-plugin-eslint": "^2.0.8",
     "gatsby-plugin-sitemap": "^2.2.25",
     "prettier": "^1.19.1"
   },

@@ -92,6 +92,7 @@ const NextWork = ({ className, work, handleOnOver, handleOnOut }) => {
 }
 
 NextWork.propTypes = {
+  className: PropTypes.string,
   work: PropTypes.object,
   handleOnOver: PropTypes.func,
   handleOnOut: PropTypes.func
