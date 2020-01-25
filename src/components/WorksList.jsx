@@ -14,7 +14,7 @@ import { MID_TABLET } from "@global/constants"
 const List = styled.ul`
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0 0 100px;
 `;
 
 const ListItem = styled.li`
@@ -103,7 +103,10 @@ const StyledLink = styled(Link)`
   display: block;
   width: 100%;
   height: 100%;
-  transition: opacity 266ms ease-out;
+  transition: filter 266ms ease-out, opacity 266ms ease-out;
+  /*-webkit-transition: -webkit-filter 3000ms ease-out;*/
+  filter: grayscale(0%);
+  opacity: 1;
 
   &.focus-visible,
   &:hover {
@@ -133,9 +136,11 @@ const StyledLink = styled(Link)`
 const Component = styled.div`
   &.hasOver {
     ${StyledLink} {
-      opacity: 0.75;
+      filter: grayscale(100%);
+      opacity: 0.9;
       
       &.active {
+        filter: grayscale(0%);
         opacity: 1;
       }
     }
@@ -194,20 +199,23 @@ const Component = styled.div`
 /**
  * CODE
  */
+
+const itemStylesCache = []
+let currentZIndex = 1000
+
 function renderListItem (work, onClick, index, refItemLinks, handleItemOver, handleItemOut) {
   const { contentful_id, slug, image, title, type } = work;
+  if (!itemStylesCache[index]) {
+    itemStylesCache[index] = `transition-duration: ${parseInt(Math.random() * 3000) + 1000}ms; transition-delay: ${parseInt(Math.random() * 150)}ms;`
+  }
   return (
-    <ListItem key={contentful_id}>
+    <ListItem key={contentful_id} style={{ zIndex: currentZIndex-- }}>
       <StyledLink
         to={`/work/${slug}`}
         onClick={onClick}
         onMouseEnter={handleItemOver}
         onMouseLeave={handleItemOut}
         ref={refItemLinks[index]}
-        style={{
-          transitionDuration: `${parseInt(Math.random() * 100) + 200}ms`,
-          transitionDelay: `${parseInt(Math.random() * 150)}ms`
-        }}
       >
         <ListImageComponent>
           <ListImage fluid={image.fluid} />
@@ -258,10 +266,20 @@ const WorksList = ({ onClick, worksData, needFocus, styleType }) => {
   function handleItemOver(e) {
     e.currentTarget.classList.add('active')
     componentRef.current.classList.add('hasOver')
+    for (let i=0, len=refItemLinks.length; i<len; i++) {
+      if (refItemLinks[i].current) {
+        refItemLinks[i].current.setAttribute('style', itemStylesCache[i])
+      }
+    }
   }
   function handleItemOut(e) {
     e.currentTarget.classList.remove('active')
     componentRef.current.classList.remove('hasOver')
+    for (let i=0, len=refItemLinks.length; i<len; i++) {
+      if (refItemLinks[i].current) {
+        refItemLinks[i].current.setAttribute('style', '')
+      }
+    }
   }
 
   const refItemLinks= useMemo(

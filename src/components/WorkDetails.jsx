@@ -60,8 +60,7 @@ const WorkDetails = React.memo(({
   let infoBits = []
   if (type === 'Website') {
     const displayUrl = url.replace('http://', '').replace('https://', '')
-    console.log(url);
-    infoBits.push((<InternalLink key={'WorkDetails_url'} to={url}>{displayUrl}</InternalLink>))
+    infoBits.push((<a key={'WorkDetails_url'} href={url} target="_blank" rel="noopener noreferrer">{displayUrl}</a>))
   }
   if (info) {
     infoBits.push((<span key={'WorkDetails_info'}>{info}</span>))
