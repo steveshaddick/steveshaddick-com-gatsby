@@ -180,6 +180,13 @@ export const pageQuery = graphql`
             ...GatsbyContentfulFluid      
           } 
         }
+        thumbnail {
+          title
+          description
+          fluid(maxWidth: 150, quality: 75, toFormat: JPG) {           
+            ...GatsbyContentfulFluid      
+          } 
+        }
       }
     }
   }

@@ -48,7 +48,6 @@ const ListImage = styled(Img)`
 const ListImageComponent = styled.div`
   height: 100%;
   width: 100%;
-  opacity: 0.9;
   transition: opacity 1000ms ease-out;
   padding: 5px;
   background: white;
@@ -116,10 +115,6 @@ const StyledLink = styled(Link)`
       opacity: 1;
       top: 85%;
       box-shadow: rgba(50,50,50,0.25) 0px 1px 10px 1px;
-    }
-
-    ${ListImageComponent} {
-      opacity: 1;
     }
   }
 
@@ -210,9 +205,11 @@ const Component = styled.div`
  */
 
 function renderListItem (work, onClick, index, refItemLinks, handleItemOver, handleItemOut, currentZIndex) {
-  const { contentful_id, slug, image, title, type } = work;
+  const { contentful_id, slug, image, thumbnail, title, type } = work;
+
+  let itemImage = thumbnail ? thumbnail : image;
   return (
-    <ListItem key={contentful_id} style={{ zIndex: currentZIndex-- }}>
+    <ListItem key={contentful_id} style={{ zIndex: currentZIndex - index }}>
       <StyledLink
         to={`/work/${slug}`}
         onClick={onClick}
@@ -220,12 +217,12 @@ function renderListItem (work, onClick, index, refItemLinks, handleItemOver, han
         onMouseLeave={handleItemOut}
         ref={refItemLinks[index]}
         style={{
-          transitionDuration: `${parseInt(Math.random() * 2000) + 200}ms`,
+          transitionDuration: `${parseInt(Math.random() * 2000) + 800}ms`,
           transitionDelay: `${parseInt(Math.random() * 150)}ms`
         }}
       >
         <ListImageComponent>
-          <ListImage fluid={image.fluid} />
+          <ListImage fluid={itemImage.fluid} />
         </ListImageComponent>
         <TitleCard>
           <TitleCardTitle>{title}</TitleCardTitle>
@@ -251,6 +248,13 @@ const WorksList = ({ onClick, worksData, needFocus, styleType }) => {
             title
             description
             fluid(maxWidth: 500, quality: 75, toFormat: JPG) {           
+              ...GatsbyContentfulFluid      
+            } 
+          }
+          thumbnail {
+            title
+            description
+            fluid(maxWidth: 100, quality: 75, toFormat: JPG) {           
               ...GatsbyContentfulFluid      
             } 
           }
