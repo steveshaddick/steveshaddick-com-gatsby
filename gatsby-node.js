@@ -7,6 +7,12 @@
 const path = require(`path`);
 const slash = require(`slash`);
 
+const contentfulIDs = {
+  homePage: "4xRYqvVFcSxwFv9OAgEfW",
+  aboutPage: "usCaa35pPfFCMcCIICqxM",
+  workList: "1p5V0NNEhIoZedN0PVNirR"
+};
+
 exports.sourceNodes = ({ actions }) => {
   const { createTypes } = actions;
   const typeDefs = `
@@ -26,12 +32,27 @@ exports.sourceNodes = ({ actions }) => {
   createTypes(typeDefs);
 };
 
+exports.onCreatePage = ({ page, actions }) => {
+  const { createPage, deletePage } = actions;
+  deletePage(page);
+  // You can access the variable "house" in your page queries now
+  createPage({
+    ...page,
+    context: {
+      ...page.context,
+      homePageId: contentfulIDs.homePage,
+      aboutPageId: contentfulIDs.aboutPage,
+      workListId: contentfulIDs.workList
+    }
+  });
+};
+
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions;
   return graphql(
     `
-      query {
-        contentfulWorkList(contentful_id: { eq: "1p5V0NNEhIoZedN0PVNirR" }) {
+      query($workListId: String) {
+        contentfulWorkList(contentful_id: { eq: $workListId }) {
           works {
             contentful_id
             title
@@ -75,7 +96,7 @@ exports.createPages = ({ graphql, actions }) => {
         console.log("Error retrieving contentful data", result.errors);
       }
       // Resolve the paths to our template
-      const workTemplate = path.resolve("./src/templates/work.js");
+      const workTemplate = path.resolve("./src/templates/work.jsx");
       // Then for each result we create a page.
       result.data.contentfulWorkList.works.forEach(work => {
         createPage({
