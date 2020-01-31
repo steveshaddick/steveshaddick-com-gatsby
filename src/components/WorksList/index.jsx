@@ -40,7 +40,7 @@ function renderListItem(
         }}
       >
         <ListImageComponent>
-          <ListImage fluid={itemImage.fluid} />
+          <ListImage fluid={itemImage.fluid} alt={itemImage.title} />
         </ListImageComponent>
         <TitleCard>
           <TitleCardTitle>{title}</TitleCardTitle>

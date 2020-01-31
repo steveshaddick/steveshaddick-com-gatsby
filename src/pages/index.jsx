@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import styled from "styled-components";
 
 import { getRandomWork } from "@utils/work-utils";
 
@@ -10,7 +11,14 @@ import WorksList from "@components/WorksList";
 import PageContainer from "@components/PageContainer";
 
 import storage from "local-storage-fallback";
-import twome from "@images/twome2020.png";
+
+/**
+ * STYLES
+ */
+const WorkListHead = styled.h2`
+  margin-top: 75px;
+  border-bottom: 1px solid #ccc;
+`;
 
 /**
  * Page component definition
@@ -46,11 +54,10 @@ const IndexPage = ({
     <PageContainer className={`transitionNode`}>
       <SEO title="Home" />
       <h1>Stuff by Steve Shaddick</h1>
-      <img src={twome} alt="Two much" />
 
       {documentToReactComponents(description.json)}
 
-      <h2>Like these:</h2>
+      <WorkListHead>Like these:</WorkListHead>
       <WorksList worksData={randomWorks} styleType="list" />
     </PageContainer>
   );

@@ -4,12 +4,12 @@ import { graphql } from "gatsby";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import styled from "styled-components";
 import { BLOCKS } from "@contentful/rich-text-types";
-
 import Img from "gatsby-image";
 
 import PageContainer from "@components/PageContainer";
 import InternalLink from "@components/InternalLink";
 import SEO from "@components/SEO";
+import ImageClicker from "@components/ImageClicker";
 
 import { MID_TABLET } from "@global/constants";
 
@@ -92,10 +92,6 @@ const options = {
   }
 };
 
-function renderImages(image, index) {
-  return <StyledImg key={index} fluid={image.fluid} alt={image.title} />;
-}
-
 const AboutPage = ({
   data: {
     contentfulPage: { title, description, image },
@@ -105,13 +101,13 @@ const AboutPage = ({
   const [randomIndex] = useState(Math.floor(Math.random() * works.length));
   const randomWork = works[randomIndex];
 
-  const renderedImaged = image.map(renderImages);
-
   return (
     <PageContainer className="transitionNode enterFore exitFore">
       <SEO title={title} />
       <Container>
-        <ImagesContainer>{renderedImaged}</ImagesContainer>
+        <ImagesContainer>
+          <ImageClicker images={image} />
+        </ImagesContainer>
         <TextContainer>
           {documentToReactComponents(description.json, options)}
 
