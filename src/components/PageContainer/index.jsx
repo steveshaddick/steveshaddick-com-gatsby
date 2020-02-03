@@ -7,9 +7,12 @@ import { Component } from "./styles";
  * Component definition
  * @param {Props} props
  */
-const PageContainer = ({ children, className }) => (
-  <Component className={className}>{children}</Component>
-);
+const PageContainer = ({ children, className }) => {
+  className = !className ? "" : className;
+  return (
+    <Component className={`PageContainer ${className}`}>{children}</Component>
+  );
+};
 
 PageContainer.propTypes = {
   children: PropTypes.node,
