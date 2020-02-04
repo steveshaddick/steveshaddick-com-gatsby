@@ -6,6 +6,7 @@ import Footer from "./Footer";
 
 import "normalize.css";
 import "./styles.css";
+import "./dark-styles.css";
 import "focus-visible";
 
 const DefaultLayout = ({ children }) => {
