@@ -10,6 +10,7 @@ const slash = require(`slash`);
 const contentfulIDs = {
   homePage: "4xRYqvVFcSxwFv9OAgEfW",
   aboutPage: "usCaa35pPfFCMcCIICqxM",
+  notFoundPage: "3ka7On3MTD5mmlFJJdN0iZ",
   workList: "1p5V0NNEhIoZedN0PVNirR"
 };
 
@@ -42,6 +43,7 @@ exports.onCreatePage = ({ page, actions }) => {
       ...page.context,
       homePageId: contentfulIDs.homePage,
       aboutPageId: contentfulIDs.aboutPage,
+      notFoundPageId: contentfulIDs.notFoundPage,
       workListId: contentfulIDs.workList
     }
   });

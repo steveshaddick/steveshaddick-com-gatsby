@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import styled from "styled-components";
-import { BLOCKS } from "@contentful/rich-text-types";
-import Img from "gatsby-image";
 
 import PageContainer from "@components/PageContainer";
 import InternalLink from "@components/InternalLink";
 import SEO from "@components/SEO";
 import ImageClicker from "@components/ImageClicker";
+
+import { renderJsonText } from "@utils/contentfulTextRenderer";
 
 import { MID_TABLET } from "@global/constants";
 
@@ -18,10 +17,6 @@ import { MID_TABLET } from "@global/constants";
  */
 
 const RandomWorkContainer = styled.div``;
-
-const StyledImg = styled(Img)`
-  margin: 16px 0;
-`;
 
 const ImagesContainer = styled.div`
   width: 25%;
@@ -55,43 +50,6 @@ const Container = styled.div`
  * CODE
  */
 
-const options = {
-  renderNode: {
-    // eslint-disable-next-line react/display-name
-    [BLOCKS.EMBEDDED_ASSET]: node => {
-      const {
-        data: {
-          target: { fields }
-        }
-      } = node;
-      const {
-        title,
-        file: {
-          "en-CA": { url, details }
-        }
-      } = fields;
-      const {
-        image: { height, width }
-      } = details;
-
-      const imagedata = {
-        aspectRatio: width / height,
-        sizes: "(max-width: 500px) 100vw, 500px",
-        src: `${url}?w=500&q=75&fm=jpg`,
-        srcSet: `
-          ${url}?w=125&h=94&q=75&fm=jpg 125w,
-          ${url}?w=250&h=188&q=75&fm=jpg 250w,
-          ${url}?w=500&h=375&q=75&fm=jpg 500w,
-          ${url}?w=750&h=563&q=75&fm=jpg 750w,
-          ${url}?w=1000&h=751&q=75&fm=jpg 1000w,
-          ${url}?w=1500&h=1126&q=75&fm=jpg 1500w
-        `
-      };
-      return <StyledImg fluid={imagedata} alt={title["en-CA"]} />;
-    }
-  }
-};
-
 const AboutPage = ({
   data: {
     contentfulPage: { title, description, image },
@@ -109,7 +67,7 @@ const AboutPage = ({
           <ImageClicker images={image} />
         </ImagesContainer>
         <TextContainer>
-          {documentToReactComponents(description.json, options)}
+          {renderJsonText(description.json)}
 
           <RandomWorkContainer>
             In the meantime, check this out:{" "}

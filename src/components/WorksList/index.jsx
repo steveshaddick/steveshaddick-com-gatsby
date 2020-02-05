@@ -2,6 +2,8 @@ import React, { useMemo, useEffect, createRef } from "react";
 import PropTypes from "prop-types";
 import { useStaticQuery, graphql } from "gatsby";
 
+import "@utils/fragments.js";
+
 import {
   Component,
   List,
@@ -55,35 +57,11 @@ function renderListItem(
  * Component definition
  * @param {Props} props
  */
-const WorksList = ({ onClick, worksData, needFocus, styleType }) => {
+const WorksList = ({ className, onClick, worksData, needFocus, styleType }) => {
   const data = useStaticQuery(graphql`
     query {
       contentfulWorkList(contentful_id: { eq: "1p5V0NNEhIoZedN0PVNirR" }) {
-        works {
-          contentful_id
-          title
-          slug
-          type
-          info
-          url
-          image {
-            title
-            description
-            fluid(maxWidth: 500, quality: 75, toFormat: JPG) {
-              ...GatsbyContentfulFluid
-            }
-          }
-          thumbnail {
-            title
-            description
-            fluid(maxWidth: 100, quality: 75, toFormat: JPG) {
-              ...GatsbyContentfulFluid
-            }
-          }
-          description {
-            json
-          }
-        }
+        ...workListFields
       }
     }
   `);
@@ -134,13 +112,14 @@ const WorksList = ({ onClick, worksData, needFocus, styleType }) => {
   }, [needFocus, refItemLinks]);
 
   return (
-    <Component ref={componentRef} className={styleType}>
+    <Component ref={componentRef} className={`${styleType} ${className}`}>
       <List aria-label="List of works">{listItems}</List>
     </Component>
   );
 };
 
 WorksList.propTypes = {
+  className: PropTypes.string,
   onClick: PropTypes.func,
   worksData: PropTypes.array,
   needFocus: PropTypes.bool,
