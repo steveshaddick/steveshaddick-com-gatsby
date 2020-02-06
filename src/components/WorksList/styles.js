@@ -13,9 +13,9 @@ export const List = styled.ul`
 
 export const ListItem = styled.li`
   height: 100px;
-  width: 100px;
+  width: 100%;
   padding: 0;
-  margin: 10px auto;
+  margin: 5px auto;
   transition: box-shadow 2000ms ease-out;
   box-shadow: rgba(50, 50, 50, 0) 0px 1px 20px 1px;
   vertical-align: top;
@@ -47,7 +47,6 @@ export const ListImageComponent = styled.div`
   background: white;
 
   @media (hover: none), ${MID_TABLET} {
-    height: 100px;
     min-height: 75px;
   }
 `;
@@ -149,6 +148,8 @@ export const Component = styled.div`
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
       grid-template-rows: auto;
+      padding: 20px;
+      grid-column-gap: 15px;
 
       @media (max-width: 1000px) {
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;

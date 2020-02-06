@@ -38,8 +38,18 @@ a:hover {
   text-decoration-color: rgba(140, 166, 180, 1);
 }
 
+.title-word-transition {
+  display: inline-block;
+  transition: transform 466ms cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
 .tl-wrapper .transitionNode {
   transition: all 233ms ease-out;
+}
+
+.tl-wrapper-status--entering .title-word-transition,
+.tl-wrapper-status--entered .title-word-transition {
+  transform: translate3d(0, 0, 0) !important;
 }
 
 .tl-wrapper-status--exiting .transitionNode.exitFore,

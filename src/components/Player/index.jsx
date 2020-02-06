@@ -20,7 +20,7 @@ const Player = ({ url, loop, controls }) => {
         className={`ReactPlayer ${readyClass}`}
         url={url}
         loop={loop}
-        controls={controls}
+        controls={true}
         playing
         width="100%"
         height="100%"

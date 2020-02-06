@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 
 import WorksList from "@components/WorksList";
+import { renderTitle } from "@utils/transitionHelper";
 
 import {
   Component,
@@ -48,7 +49,7 @@ const WorkDetails = ({ title, type, info, description, url, nextWorks }) => {
     <Component>
       <UnderBarContainer>
         <TitleInfoContainer>
-          <Title>{title}</Title>
+          <Title dangerouslySetInnerHTML={renderTitle(title)} />
           <Info>{infoBits.reduce((prev, curr) => [prev, " ", curr])}</Info>
         </TitleInfoContainer>
       </UnderBarContainer>

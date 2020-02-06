@@ -90,12 +90,12 @@ export const Component = styled.div`
   bottom: 0;
   transition: top 266ms cubic-bezier(0.86, 0, 0.07, 1), box-shadow 700ms linear;
   background-color: white;
-  box-shadow: rgba(100, 100, 100, 0) 1px 1px 10px 1px;
-  border-top: 1px solid rgb(220, 220, 200, 0.5);
+  box-shadow: rgba(100, 100, 100, 0.1) 1px 1px 10px 1px;
+  border-top: 1px solid rgb(190, 190, 200, 0.5);
 
   &:focus-within,
   &:hover {
-    box-shadow: rgba(100, 100, 100, 0.1) 1px 1px 10px 1px;
+    box-shadow: rgba(100, 100, 100, 0.35) 1px 1px 10px 1px;
   }
 
   &.expanded {
