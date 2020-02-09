@@ -48,6 +48,7 @@ export const ListImageComponent = styled.div`
 
   @media (hover: none), ${MID_TABLET} {
     min-height: 75px;
+    height: 100px;
   }
 `;
 
