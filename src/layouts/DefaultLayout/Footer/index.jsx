@@ -55,7 +55,7 @@ class Footer extends React.Component {
         this.setState({
           loadList: true
         });
-      }, 500);
+      }, 800);
 
       this.setState({
         isExpanded: true
@@ -126,7 +126,14 @@ class Footer extends React.Component {
         ref={this.refComponent}
         onTransitionEnd={this.onComponentTransitionEnd}
       >
-        <FocusLock disabled={!isExpanded}>
+        <FocusLock
+          disabled={!isExpanded}
+          onDeactivation={() => {
+            // Without the zero-timeout, focus will likely remain on the button/control
+            // you used to set isFocusLockDisabled = true
+            window.setTimeout(() => this.refComponent.current.focus(), 0);
+          }}
+        >
           <Container onKeyDown={this.onKeyPressed}>
             <BarComponent>
               <BarContainer ref={this.refFooter}>

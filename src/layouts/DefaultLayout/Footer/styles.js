@@ -88,7 +88,7 @@ export const Component = styled.div`
   position: fixed;
   top: auto;
   bottom: 0;
-  transition: top 266ms cubic-bezier(0.86, 0, 0.07, 1), box-shadow 700ms linear;
+  transition: top 566ms cubic-bezier(0.86, 0, 0.07, 1), box-shadow 700ms linear;
   background-color: white;
   box-shadow: rgba(100, 100, 100, 0.1) 1px 1px 10px 1px;
   border-top: 1px solid rgb(190, 190, 200, 0.5);
@@ -101,6 +101,7 @@ export const Component = styled.div`
   &.expanded {
     top: 0 !important;
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
     background-color: #fafafa;
     height: 100vh;
 
