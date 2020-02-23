@@ -71,9 +71,6 @@ a:hover {
 
 .gatsby-plugin-transition-link-portal {
   transition: bottom 300ms ease-in;
-  height: 100vh;
-  width: 100vw;
-  pointer-events: none;
 }
 
 @media (max-width: 480px) {

@@ -14,7 +14,7 @@ export const WorksListContainer = styled.div`
   background: white;
   max-height: 0;
   overflow: hidden;
-
+  transform: translate3d(0, 0, 0);
   transition: max-height 300ms ease-out;
 `;
 
@@ -85,14 +85,13 @@ export const FakeLink = styled.button``;
 
 export const Component = styled.div`
   width: 100%;
-  position: absolute;
+  position: fixed;
   top: auto;
   bottom: 0;
   transition: top 566ms cubic-bezier(0.86, 0, 0.07, 1), box-shadow 700ms linear;
   background-color: white;
   box-shadow: rgba(100, 100, 100, 0.1) 1px 1px 10px 1px;
   border-top: 1px solid rgb(190, 190, 200, 0.5);
-  pointer-events: all;
 
   &:focus-within,
   &:hover {
