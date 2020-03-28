@@ -18,8 +18,7 @@ import {
   InternalLinkStyled,
   BarComponent,
   BarContainer,
-  Nav,
-  FakeLink
+  Nav
 } from "./styles";
 
 /**

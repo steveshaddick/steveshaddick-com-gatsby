@@ -101,6 +101,8 @@ class WorkPage extends React.Component {
       ? metaDescription
       : `A ${type.toLowerCase()} work.`;
 
+    const seoImage = image ? image.fluid.src : null;
+
     return (
       <TransitionState>
         {({ entry, exit }) => {
@@ -115,7 +117,11 @@ class WorkPage extends React.Component {
 
           return (
             <PageContainer className={`transitionNode ${transitionClassName}`}>
-              <SEO title={title} description={seoDescription} />
+              <SEO
+                title={title}
+                description={seoDescription}
+                imageUrl={seoImage}
+              />
 
               <Container>
                 <MediaContainer>
