@@ -149,7 +149,7 @@ export const Component = styled.div`
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
       grid-template-rows: auto;
-      padding: 20px;
+      padding: 20px 20px 100px;
       grid-column-gap: 15px;
 
       @media (max-width: 1000px) {

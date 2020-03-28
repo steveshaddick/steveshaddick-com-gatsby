@@ -38,6 +38,7 @@ class Footer extends React.Component {
 
     this.onComponentTransitionEnd = this.onComponentTransitionEnd.bind(this);
     this.onKeyPressed = this.onKeyPressed.bind(this);
+    this.onHashChange = this.onHashChange.bind(this);
 
     this.refFooter = React.createRef();
     this.refComponent = React.createRef();
@@ -60,8 +61,7 @@ class Footer extends React.Component {
       this.setState({
         isExpanded: true
       });
-
-      disableBodyScroll(this.refListContainer.current);
+      disableBodyScroll(this.refComponent.current);
     }, 10);
   }
 
@@ -86,7 +86,7 @@ class Footer extends React.Component {
       if (e.propertyName === "top") {
         if (!isExpanded) {
           this.refComponent.current.style.top = "";
-          enableBodyScroll(this.refListContainer.current);
+          enableBodyScroll(this.refComponent.current);
         }
       }
     }
@@ -103,6 +103,26 @@ class Footer extends React.Component {
         this.collapseFooter();
       }
     }
+  }
+
+  /**
+   * Hash changed handler
+   * @param {Event} e
+   */
+  onHashChange(e) {
+    if (window.location.hash === "#works") {
+      this.expandFooter();
+    } else {
+      this.collapseFooter();
+    }
+  }
+
+  /**
+   * Component mount
+   */
+  componentDidMount() {
+    window.addEventListener("hashchange", this.onHashChange);
+    this.onHashChange();
   }
 
   /**
@@ -147,14 +167,15 @@ class Footer extends React.Component {
                     About
                   </InternalLinkStyled>
                   {!isExpanded && (
-                    <FakeLink onClick={() => this.expandFooter()}>
+                    <a href="#works" aria-label="Open works list">
                       Work
-                    </FakeLink>
+                    </a>
                   )}
                   {isExpanded && (
-                    <FakeLink onClick={() => this.collapseFooter()}>
+                    // eslint-disable-next-line jsx-a11y/anchor-is-valid
+                    <a href="#" title="Close" aria-label="Close works list">
                       Close
-                    </FakeLink>
+                    </a>
                   )}
                 </Nav>
               </BarContainer>
