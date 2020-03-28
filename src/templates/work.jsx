@@ -101,7 +101,7 @@ class WorkPage extends React.Component {
       ? metaDescription
       : `A ${type.toLowerCase()} work.`;
 
-    const seoImage = image ? image.fluid.src : null;
+    const seoImage = image ? `https:${image.fluid.src}` : null;
 
     return (
       <TransitionState>

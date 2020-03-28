@@ -8,7 +8,7 @@ module.exports = {
     description: `Sometimes I make things, and sometimes I post them here.`,
     author: `Steve Shaddick`,
     siteUrl: `https://www.steveshaddick.com`,
-    imageUrl: `//images.ctfassets.net/xuticruz4ivv/4pNlubkVcqe7wc9mDINu5t/e21cd3bea435386a2aed2391571c02dd/Home___Steve_Shaddick.jpg?w=800&q=50`
+    imageUrl: `https://images.ctfassets.net/xuticruz4ivv/4pNlubkVcqe7wc9mDINu5t/e21cd3bea435386a2aed2391571c02dd/Home___Steve_Shaddick.jpg?w=800&q=50`
   },
   plugins: [
     {
