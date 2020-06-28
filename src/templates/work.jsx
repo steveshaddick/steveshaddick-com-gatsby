@@ -125,7 +125,7 @@ class WorkPage extends React.Component {
 
               <Container>
                 <MediaContainer>
-                  {type === "Video" && (
+                  {(type === "Video" || type === "Audio") && (
                     <Player url={url} loop={loop} controls={controls}></Player>
                   )}
                   {type === "Website" && (
